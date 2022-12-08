@@ -1,13 +1,13 @@
 {
   "name": "seker",
-  "homepage": "https://richdom2185.github.io/seker",
+  "homepage": "https://richdom2185.github.io/seker/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
