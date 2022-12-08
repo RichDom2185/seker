@@ -45,5 +45,7 @@ export const writeLine = async (serialPort: SerialPort, message: string) => {
 };
 
 export const runProgram = async (port: SerialPort, program: string) => {
-  program.split('\n').forEach(line => writeLine(port, line))
+  for (const line of program.split("\n")) {
+    await writeLine(port, line);
+  }
 };
