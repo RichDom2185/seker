@@ -13,6 +13,7 @@ import { readUntilPrompt, runProgram, writeLine } from "./utils/functions";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/mode-python";
 import "js-slang/dist/editors/ace/theme/source";
 
 /*
@@ -42,13 +43,21 @@ declare global {
   }
 }
 
-const pythonProgram = `
-import hub
-hub.display.clear()
+const samplePythonProgram = `
+from spike import PrimeHub
+hub = PrimeHub()
+hub.light_matrix.off()
+hub.light_matrix.set_pixel(2, 2, 80)
+hub.light_matrix.set_pixel(3, 3, 80)
+hub.light_matrix.set_pixel(2, 3, 80)
+hub.light_matrix.set_pixel(3, 2, 80)
+hub.light_matrix.set_pixel(4, 4, 80)
+hub.light_matrix.set_pixel(0, 0, 80)
 `;
 
 function App() {
-  const [program, setProgram] = useState(PROGRAM_PLACEHOLDER);
+  const [sourceProgram, setSourceProgram] = useState(PROGRAM_PLACEHOLDER);
+  const [pythonProgram, setPythonProgram] = useState(samplePythonProgram);
 
   useEffect(() => {
     const decodedFragment = parse(location.hash);
@@ -56,7 +65,7 @@ function App() {
       decodedFragment.prgrm as string
     );
     if (decodedProgram) {
-      setProgram(decodedProgram);
+      setSourceProgram(decodedProgram);
     }
   }, []);
 
@@ -74,20 +83,30 @@ function App() {
 
           console.log(await readUntilPrompt(port, 2000, true));
           await runProgram(port, pythonProgram);
+          console.log("Run complete!");
 
           // Soft reboot
           await writeLine(port, END_OF_TRANSMISSION);
           port.close();
         }}
       >
-        Select Device
+        Run on Device
       </button>
-      <p>Source §3 code:</p>
+      {/* <p>Source §3 code:</p>
       <AceEditor
+        name="sourceEditor"
         mode="javascript"
         theme="source"
-        onChange={setProgram}
-        value={program}
+        onChange={setSourceProgram}
+        value={sourceProgram}
+      /> */}
+      <p>Python code:</p>
+      <AceEditor
+        name="pythonEditor"
+        mode="python"
+        theme="source"
+        onChange={setPythonProgram}
+        value={pythonProgram}
       />
     </div>
   );
