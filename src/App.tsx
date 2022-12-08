@@ -1,4 +1,4 @@
-import { EventHandler } from "react";
+import { EventHandler, useState } from "react";
 import AceEditor from "react-ace";
 import "./App.css";
 import { BAUD_RATE_SPIKE_PRIME } from "./utils/constants";
@@ -35,7 +35,7 @@ declare global {
 }
 
 function App() {
-  const prog = "// Test Program";
+  const [program, setProgram] = useState("// Test Program");
 
   return (
     <div className="App">
@@ -66,7 +66,12 @@ function App() {
         Select Device
       </button>
       <p>Source §3 code:</p>
-      <AceEditor mode="javascript" theme="source" value={prog} />
+      <AceEditor
+        mode="javascript"
+        theme="source"
+        onChange={setProgram}
+        value={program}
+      />
     </div>
   );
 }
