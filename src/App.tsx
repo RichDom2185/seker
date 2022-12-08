@@ -1,7 +1,9 @@
-import { EventHandler, useState } from "react";
+import { decompressFromEncodedURIComponent } from "lz-string";
+import { parse } from "query-string";
+import { EventHandler, useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import "./App.css";
-import { BAUD_RATE_SPIKE_PRIME } from "./utils/constants";
+import { BAUD_RATE_SPIKE_PRIME, PROGRAM_PLACEHOLDER } from "./utils/constants";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -35,7 +37,17 @@ declare global {
 }
 
 function App() {
-  const [program, setProgram] = useState("// Test Program");
+  const [program, setProgram] = useState(PROGRAM_PLACEHOLDER);
+
+  useEffect(() => {
+    const decodedFragment = parse(location.hash);
+    const decodedProgram = decompressFromEncodedURIComponent(
+      decodedFragment.prgrm as string
+    );
+    if (decodedProgram) {
+      setProgram(decodedProgram);
+    }
+  }, []);
 
   return (
     <div className="App">
