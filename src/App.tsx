@@ -3,7 +3,13 @@ import { parse } from "query-string";
 import { EventHandler, useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import "./App.css";
-import { BAUD_RATE_SPIKE_PRIME, PROGRAM_PLACEHOLDER } from "./utils/constants";
+import {
+  BAUD_RATE_SPIKE_PRIME,
+  END_OF_TRANSMISSION,
+  KEYBOARD_INTERRUPT,
+  PROGRAM_PLACEHOLDER,
+} from "./utils/constants";
+import { readUntilPrompt, writeLine } from "./utils/functions";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -55,24 +61,19 @@ function App() {
       <button
         onClick={async () => {
           const port = await navigator.serial.requestPort();
-          console.log(port.getInfo());
-          console.log("Opening port");
           await port.open({ baudRate: BAUD_RATE_SPIKE_PRIME });
 
-          // Listen to data coming from the serial device.
-          const reader = port.readable.getReader();
+          console.log(await readUntilPrompt(port, 2000, true));
 
-          while (true) {
-            const { value, done } = await reader.read();
-            if (done) {
-              console.log("Done");
-              // Allow the serial port to be closed later.
-              reader.releaseLock();
-              break;
-            }
-            // value is a Uint8Array.
-            console.log(new TextDecoder().decode(value as Uint8Array));
-          }
+          await writeLine(port, KEYBOARD_INTERRUPT);
+
+          console.log(await readUntilPrompt(port, 2000, true));
+          await writeLine(port, "");
+          await writeLine(port, "import hub");
+          await writeLine(port, "hub.display.clear()");
+          await writeLine(port, "");
+          await writeLine(port, END_OF_TRANSMISSION);
+          port.close();
         }}
       >
         Select Device
