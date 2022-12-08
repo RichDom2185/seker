@@ -9,7 +9,7 @@ import {
   KEYBOARD_INTERRUPT,
   PROGRAM_PLACEHOLDER,
 } from "./utils/constants";
-import { readUntilPrompt, writeLine } from "./utils/functions";
+import { readUntilPrompt, runProgram, writeLine } from "./utils/functions";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -42,6 +42,11 @@ declare global {
   }
 }
 
+const pythonProgram = `
+import hub
+hub.display.clear()
+`;
+
 function App() {
   const [program, setProgram] = useState(PROGRAM_PLACEHOLDER);
 
@@ -68,10 +73,9 @@ function App() {
           await writeLine(port, KEYBOARD_INTERRUPT);
 
           console.log(await readUntilPrompt(port, 2000, true));
-          await writeLine(port, "");
-          await writeLine(port, "import hub");
-          await writeLine(port, "hub.display.clear()");
-          await writeLine(port, "");
+          await runProgram(port, pythonProgram);
+
+          // Soft reboot
           await writeLine(port, END_OF_TRANSMISSION);
           port.close();
         }}

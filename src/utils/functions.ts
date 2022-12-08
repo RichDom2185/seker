@@ -43,3 +43,7 @@ export const writeLine = async (serialPort: SerialPort, message: string) => {
   // Allow the serial port to be closed later.
   writer.releaseLock();
 };
+
+export const runProgram = async (port: SerialPort, program: string) => {
+  program.split('\n').forEach(line => writeLine(port, line))
+};
