@@ -5,4 +5,14 @@ import { defineConfig } from "vite";
 export default defineConfig({
   base: "/seker/",
   plugins: [react()],
+  resolve: {
+    alias: [
+      // Use UMD bundle for xmlhttprequest-ts dependency
+      {
+        find: "xmlhttprequest-ts",
+        replacement:
+          "./node_modules/xmlhttprequest-ts/bundles/xmlhttprequest-ts.umd.js",
+      },
+    ],
+  },
 });
