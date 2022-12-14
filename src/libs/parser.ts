@@ -1,4 +1,5 @@
 // Adapted from https://github.com/source-academy/JSpike/blob/main/src/parser/parser.ts
+// @ts-ignore missing type definitions
 import { error, head, is_null, map, parse, tail } from "sicp";
 
 type List<A> = null | [A, List<A>];
