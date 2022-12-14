@@ -1770,6 +1770,22 @@ set-blocking@^2.0.0:
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
   integrity sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==
 
+sicp@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/sicp/-/sicp-1.1.4.tgz#72e6679c9355c712f6a79654afa394c394e1f5da"
+  integrity sha512-R67/MdmQvAsk3P64p2DVa43TMxKLgjY5WFU7Cz4OlrElOW69XcyoWx/jg4Q6Y0HzNXsoG6faY02qKpRpNygTXQ==
+  dependencies:
+    "@joeychenofficial/alt-ergo-modified" "^2.4.0"
+    "@types/estree" "0.0.52"
+    acorn "^8.0.3"
+    acorn-loose "^8.0.0"
+    acorn-walk "^8.0.0"
+    astring "^1.4.3"
+    gpu.js "^2.10.4"
+    lodash "^4.17.20"
+    source-map "^0.7.3"
+    xmlhttprequest-ts "^1.0.1"
+
 signal-exit@^3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
@@ -1820,6 +1836,11 @@ source-map@0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
   integrity sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==
+
+source-map@^0.7.3:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.4.tgz#a9bbe705c9d8846f4e08ff6765acf0f1b0898656"
+  integrity sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==
 
 sourcemap-codec@^1.4.8:
   version "1.4.8"
