@@ -15,6 +15,7 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-python";
 import "js-slang/dist/editors/ace/theme/source";
+import { parse_into_json } from "./libs/parser";
 
 /*
  * References:
@@ -57,6 +58,7 @@ hub.light_matrix.set_pixel(0, 0, 80)
 
 function App() {
   const [sourceProgram, setSourceProgram] = useState(PROGRAM_PLACEHOLDER);
+  const [jsonProgram, setJsonProgram] = useState("");
   const [pythonProgram, setPythonProgram] = useState(samplePythonProgram);
 
   useEffect(() => {
@@ -92,22 +94,48 @@ function App() {
       >
         Run on Device
       </button>
-      {/* <p>Source §3 code:</p>
-      <AceEditor
-        name="sourceEditor"
-        mode="javascript"
-        theme="source"
-        onChange={setSourceProgram}
-        value={sourceProgram}
-      /> */}
       <p>Python code:</p>
       <AceEditor
         name="pythonEditor"
         mode="python"
         theme="source"
+        width="100%"
         onChange={setPythonProgram}
         value={pythonProgram}
       />
+      <hr style={{ marginBlock: "1.5em" }} />
+      <p>
+        <strong>NOTE:</strong> The following section is to demonstrate the
+        Source-to-JSON parser. Running of Source programs directly on the SPIKE
+        Prime is not available yet.
+      </p>
+      <button
+        onClick={() => {
+          try {
+            setJsonProgram(parse_into_json(sourceProgram));
+          } catch (e) {
+            setJsonProgram("[ERROR] " + e);
+          }
+        }}
+      >
+        Parse into JSON
+      </button>
+      <p>Source §3 code:</p>
+      <AceEditor
+        name="sourceEditor"
+        mode="javascript"
+        theme="source"
+        width="100%"
+        onChange={setSourceProgram}
+        value={sourceProgram}
+      />
+      {jsonProgram && (
+        <p>
+          JSON Code:
+          <br />
+          {jsonProgram}
+        </p>
+      )}
     </div>
   );
 }
