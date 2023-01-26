@@ -9,7 +9,7 @@ import {
   KEYBOARD_INTERRUPT,
   PROGRAM_PLACEHOLDER,
 } from "./utils/constants";
-import { readUntilPrompt, runProgram, writeLine } from "./utils/functions";
+import { readUntilPrompt, runProgram, writeLines } from "./utils/functions";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -81,14 +81,14 @@ function App() {
 
           console.log(await readUntilPrompt(port, 2000, true));
 
-          await writeLine(port, KEYBOARD_INTERRUPT);
+          await writeLines(port, KEYBOARD_INTERRUPT);
 
           console.log(await readUntilPrompt(port, 2000, true));
           await runProgram(port, pythonProgram);
           console.log("Run complete!");
 
           // Soft reboot
-          await writeLine(port, END_OF_TRANSMISSION);
+          await writeLines(port, END_OF_TRANSMISSION);
           port.close();
         }}
       >

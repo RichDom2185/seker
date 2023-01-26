@@ -36,16 +36,21 @@ export const readUntilPrompt = async (
   }
 };
 
-export const writeLine = async (serialPort: SerialPort, message: string) => {
+export const writeLines = async (
+  serialPort: SerialPort,
+  ...message: string[]
+) => {
   const writer = serialPort.writable.getWriter();
-  const writeData = new TextEncoder().encode(message + "\r\n"); // SPIKE uses CRLF encoding
-  await writer.write(writeData);
+  for (const line of message) {
+    const writeData = new TextEncoder().encode(line + "\r\n"); // SPIKE uses CRLF encoding
+    await writer.write(writeData);
+  }
   // Allow the serial port to be closed later.
   writer.releaseLock();
 };
 
 export const runProgram = async (port: SerialPort, program: string) => {
   for (const line of program.split("\n")) {
-    await writeLine(port, line);
+    await writeLines(port, line);
   }
 };
