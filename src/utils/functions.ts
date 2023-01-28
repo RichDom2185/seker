@@ -44,7 +44,7 @@ export const writeLines = async (
 ) => {
   const writer = serialPort.writable.getWriter();
   for (const line of message) {
-    const writeData = new TextEncoder().encode(line + "\r\n"); // SPIKE uses CRLF encoding
+    const writeData = new TextEncoder().encode(line + "\n");
     await writer.write(writeData);
   }
   // Allow the serial port to be closed later.
@@ -52,10 +52,5 @@ export const writeLines = async (
 };
 
 export const runProgram = async (port: SerialPort, program: string) => {
-  await writeLines(
-    port,
-    PASTE_MODE_ENTER,
-    ...program.split("\n"),
-    PASTE_MODE_EXIT
-  );
+  await writeLines(port, PASTE_MODE_ENTER, program, PASTE_MODE_EXIT);
 };
