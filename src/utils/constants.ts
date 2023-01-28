@@ -8,3 +8,8 @@ export const PROGRAM_PLACEHOLDER = "// Write your Source §3 program here!";
 export const PASTE_MODE_ENTER = "\x05";
 export const PASTE_MODE_EXIT = "\x04";
 export const PASTE_MODE_CANCEL = "\x03";
+
+// Reference: https://docs.micropython.org/en/latest/reference/repl.html#raw-mode-and-raw-paste-mode
+export const RAW_MODE_ENTER = "\x01";
+export const RAW_MODE_COMPILE = "\x04";
+export const RAW_MODE_EXIT = "\x02";

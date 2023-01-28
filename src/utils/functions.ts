@@ -1,4 +1,4 @@
-import { PASTE_MODE_ENTER, PASTE_MODE_EXIT } from "./constants";
+import { RAW_MODE_COMPILE, RAW_MODE_ENTER, RAW_MODE_EXIT } from "./constants";
 
 // FIXME: Fix `any` type
 type SerialPort = any;
@@ -56,7 +56,13 @@ export const writeLines = async (
 };
 
 export const runProgram = async (port: SerialPort, program: string) => {
-  await writeLines(port, PASTE_MODE_ENTER, program, PASTE_MODE_EXIT);
+  await writeLines(
+    port,
+    RAW_MODE_ENTER,
+    program,
+    RAW_MODE_COMPILE,
+    RAW_MODE_EXIT
+  );
   await readUntilPrompt(port);
   console.log("Program complete!");
 };
