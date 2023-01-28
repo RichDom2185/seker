@@ -57,4 +57,6 @@ export const writeLines = async (
 
 export const runProgram = async (port: SerialPort, program: string) => {
   await writeLines(port, PASTE_MODE_ENTER, program, PASTE_MODE_EXIT);
+  await readUntilPrompt(port);
+  console.log("Program complete!");
 };
