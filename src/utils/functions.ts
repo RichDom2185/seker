@@ -1,3 +1,5 @@
+import { PASTE_MODE_ENTER, PASTE_MODE_EXIT } from "./constants";
+
 // FIXME: Fix `any` type
 type SerialPort = any;
 
@@ -50,7 +52,10 @@ export const writeLines = async (
 };
 
 export const runProgram = async (port: SerialPort, program: string) => {
-  for (const line of program.split("\n")) {
-    await writeLines(port, line);
-  }
+  await writeLines(
+    port,
+    PASTE_MODE_ENTER,
+    ...program.split("\n"),
+    PASTE_MODE_EXIT
+  );
 };
