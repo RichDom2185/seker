@@ -49,7 +49,19 @@ export const writeLines = async (
   const writer = serialPort.writable.getWriter();
   for (const line of message) {
     const writeData = new TextEncoder().encode(line + "\n");
-    await writer.write(writeData);
+
+    const chunkSize = 100;
+    // console.log("Sending program...");
+    for (let i = 0; i < writeData.length; i += chunkSize) {
+      // console.log(`Writing chunk at offset ${i}`);
+      const chunk = writeData.slice(i, i + chunkSize);
+      await writer.write(chunk);
+
+      // Sleep needed to allow the SPIKE to catch up
+      // with the rate of data transfer.
+      await sleep(10);
+    }
+    // console.log("Sending complete!");
   }
   // Allow the serial port to be closed later.
   writer.releaseLock();
@@ -66,3 +78,5 @@ export const runProgram = async (port: SerialPort, program: string) => {
   await readUntilPrompt(port);
   console.log("Program complete!");
 };
+
+export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
