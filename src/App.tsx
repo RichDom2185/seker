@@ -44,8 +44,9 @@ declare global {
   }
 }
 
-const samplePythonProgram = `
-from spike import PrimeHub
+const samplePythonPrograms: readonly string[] = [
+  `from spike import PrimeHub
+  
 hub = PrimeHub()
 hub.light_matrix.off()
 hub.light_matrix.set_pixel(2, 2, 80)
@@ -54,12 +55,28 @@ hub.light_matrix.set_pixel(2, 3, 80)
 hub.light_matrix.set_pixel(3, 2, 80)
 hub.light_matrix.set_pixel(4, 4, 80)
 hub.light_matrix.set_pixel(0, 0, 80)
-`;
+`,
+
+  `import hub
+
+from time import sleep
+
+stat = True
+for _ in range(4):
+    hub.display.invert(stat)
+    sleep(1)
+    stat = not stat
+`,
+];
 
 function App() {
   const [sourceProgram, setSourceProgram] = useState(PROGRAM_PLACEHOLDER);
   const [jsonProgram, setJsonProgram] = useState("");
-  const [pythonProgram, setPythonProgram] = useState(samplePythonProgram);
+  const [pythonProgram, setPythonProgram] = useState(
+    samplePythonPrograms.at(
+      Math.floor(Math.random() * samplePythonPrograms.length)
+    )!
+  );
 
   useEffect(() => {
     const decodedFragment = parse(location.hash);
