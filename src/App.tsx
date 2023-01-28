@@ -98,9 +98,8 @@ function App() {
 
           await writeLines(port, KEYBOARD_INTERRUPT);
 
-          console.log(await readUntilPrompt(port, 2000, true));
+          await readUntilPrompt(port, 2000);
           await runProgram(port, pythonProgram);
-          console.log("Run complete!");
 
           // Soft reboot
           await writeLines(port, END_OF_TRANSMISSION);

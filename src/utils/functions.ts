@@ -68,6 +68,7 @@ export const writeLines = async (
 };
 
 export const runProgram = async (port: SerialPort, program: string) => {
+  console.log("Running program...");
   await writeLines(
     port,
     RAW_MODE_ENTER,
@@ -76,7 +77,7 @@ export const runProgram = async (port: SerialPort, program: string) => {
     RAW_MODE_EXIT
   );
   await readUntilPrompt(port);
-  console.log("Program complete!");
+  console.log("Run completed, resetting brick...");
 };
 
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
