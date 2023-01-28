@@ -79,8 +79,6 @@ function App() {
           const port = await navigator.serial.requestPort();
           await port.open({ baudRate: BAUD_RATE_SPIKE_PRIME });
 
-          console.log(await readUntilPrompt(port, 2000, true));
-
           await writeLines(port, KEYBOARD_INTERRUPT);
 
           console.log(await readUntilPrompt(port, 2000, true));
