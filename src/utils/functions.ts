@@ -10,15 +10,17 @@ type SerialPort = any;
  */
 export const readUntilPrompt = async (
   serialPort: SerialPort,
-  maxWaitTime: number = 1000,
+  maxWaitTime: number = 0,
   shouldPrintMessage: boolean = false
 ) => {
   const reader = serialPort.readable.getReader();
-  const handlerId = setTimeout(() => {
-    reader.releaseLock();
-    serialPort.close();
-    throw new Error("Timed Out.");
-  }, maxWaitTime);
+  const handlerId =
+    maxWaitTime &&
+    setTimeout(() => {
+      reader.releaseLock();
+      serialPort.close();
+      throw new Error("Timed Out.");
+    }, maxWaitTime);
   let buffer = "";
   while (true) {
     const { value, done } = await reader.read();
@@ -30,7 +32,9 @@ export const readUntilPrompt = async (
     const lines = buffer.split("\n");
     buffer = lines[lines.length - 1]; // keep last line only
     if (buffer.substring(0, 4) == ">>> " || done) {
-      clearTimeout(handlerId);
+      if (maxWaitTime) {
+        clearTimeout(handlerId);
+      }
       // Allow the serial port to be closed later.
       reader.releaseLock();
       return done;
