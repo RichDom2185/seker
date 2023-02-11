@@ -88,7 +88,9 @@ const EditorPage: React.FC = () => {
         onChange={(e) => setLanguageMode(e.target.value as Languages)}
       >
         {supportedLanguages.map((language) => (
-          <option value={language}>{language}</option>
+          <option key={language} value={language}>
+            {language}
+          </option>
         ))}
       </select>
       <button

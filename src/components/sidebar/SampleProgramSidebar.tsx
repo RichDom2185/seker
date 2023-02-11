@@ -33,6 +33,8 @@ const SampleProgramSidebar: React.FC<Props> = ({
         programs.map((program, i) => {
           return (
             <SampleProgramListItem
+              // Safe as programs are read only
+              key={i}
               label={`Sample Program ${i + 1}`}
               onClick={() => setProgramState(program)}
             />
