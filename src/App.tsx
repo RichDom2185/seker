@@ -4,6 +4,8 @@ import { parse } from "query-string";
 import { EventHandler, useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import "./App.css";
+import { parse_into_json } from "./libs/parser";
+import UserGuide from "./UserGuide";
 import {
   BAUD_RATE_SPIKE_PRIME,
   END_OF_TRANSMISSION,
@@ -20,7 +22,6 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-python";
 import "js-slang/dist/editors/ace/theme/source";
-import { parse_into_json } from "./libs/parser";
 
 /*
  * References:
@@ -102,6 +103,7 @@ function App() {
   return (
     <div className="App">
       <h2>SEKER: Source–SPIKE Prime Runner</h2>
+      <UserGuide />
       {languageMode === Languages.SOURCE_THREE && (
         <p>
           <em>Support for {Languages.SOURCE_THREE} Programs is coming soon!</em>
