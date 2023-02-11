@@ -1,9 +1,9 @@
-import SampleProgramSidebar from "./components/sidebar/SampleProgramSidebar";
 import { decompressFromEncodedURIComponent } from "lz-string";
 import { parse } from "query-string";
 import { EventHandler, useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import "./App.css";
+import SampleProgramSidebar from "./components/sidebar/SampleProgramSidebar";
 import { parse_into_json } from "./libs/parser";
 import UserGuide from "./UserGuide";
 import {
