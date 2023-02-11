@@ -110,6 +110,7 @@ const EditorPage: React.FC = () => {
         width="100%"
         onChange={setProgram}
         value={program}
+        wrapEnabled
       />
       {jsonProgram && (
         <p>
