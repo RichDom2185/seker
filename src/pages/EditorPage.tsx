@@ -30,8 +30,17 @@ import {
   PROGRAM_PLACEHOLDER_SOURCE_THREE,
   supportedLanguages,
 } from "../utils/constants";
-import { readUntilPrompt, runProgram, writeLines } from "../utils/functions";
+import {
+  cleanProgram,
+  readUntilPrompt,
+  runProgram,
+  writeLines,
+} from "../utils/functions";
 import UserGuide from "./UserGuide";
+
+import interpreterPrefix from "../libs/interpreter_prefix.py?raw";
+import interpreterSuffix from "../libs/interpreter_suffix.py?raw";
+import spikeMicrocode from "../libs/spike_microcode.py?raw";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -56,7 +65,18 @@ const EditorPage: React.FC = () => {
     await writeLines(port, KEYBOARD_INTERRUPT);
 
     await readUntilPrompt(port, 2000);
-    await runProgram(port, cleanProgram(program));
+    switch (languageMode) {
+      case Languages.PYTHON:
+        await runProgram(port, cleanProgram(program));
+        break;
+      case Languages.SOURCE_THREE:
+        // We split the program into chunks to maximise the amount of program space we can have.
+        await runProgram(port, cleanProgram(interpreterPrefix));
+        await runProgram(port, cleanProgram(spikeMicrocode));
+        await runProgram(port, `json_string = '${parse_into_json(program)}'\n`);
+        await runProgram(port, cleanProgram(interpreterSuffix));
+        break;
+    }
 
     // Soft reboot
     await writeLines(port, END_OF_TRANSMISSION);
@@ -100,9 +120,8 @@ const EditorPage: React.FC = () => {
             <Heading>SEKER: Source–SPIKE Prime Runner</Heading>
             <UserGuide />
             {languageMode === Languages.SOURCE_THREE && (
-              <Text fontStyle="italic" color="red">
-                Full support for {Languages.SOURCE_THREE} Programs is coming
-                soon!
+              <Text fontStyle="italic" color="orange.500">
+                Note: Support for {Languages.SOURCE_THREE} Programs is in beta!
               </Text>
             )}
             {jsonProgram && (
@@ -136,13 +155,7 @@ const EditorPage: React.FC = () => {
               </Select>
               <Spacer />
               <ButtonGroup size="sm">
-                <Button
-                  onClick={handleClickRun}
-                  // TODO: Support running Source Programs
-                  isDisabled={languageMode === Languages.SOURCE_THREE}
-                >
-                  Run on Device
-                </Button>
+                <Button onClick={handleClickRun}>Run on Device</Button>
                 {languageMode === Languages.SOURCE_THREE && (
                   <Button onClick={handleParseJson}>Parse into JSON</Button>
                 )}
