@@ -2,6 +2,9 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Card,
+  CardBody,
+  Code,
   GridItem,
   Heading,
   HStack,
@@ -102,6 +105,18 @@ const EditorPage: React.FC = () => {
                 soon!
               </Text>
             )}
+            {jsonProgram && (
+              <Card>
+                <CardBody>
+                  <Text>JSON Code:</Text>
+                  <Box overflowX="scroll">
+                    <Code display="block" whiteSpace="pre" width="max-content">
+                      {jsonProgram}
+                    </Code>
+                  </Box>
+                </CardBody>
+              </Card>
+            )}
             <HStack>
               <Text fontWeight="bold">Select language mode:</Text>
               <Select
@@ -144,13 +159,6 @@ const EditorPage: React.FC = () => {
                 wrapEnabled
               />
             </Box>
-            {jsonProgram && (
-              <p>
-                JSON Code:
-                <br />
-                {jsonProgram}
-              </p>
-            )}
           </Stack>
         </GridItem>
         <GridItem>
