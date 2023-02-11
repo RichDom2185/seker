@@ -11,6 +11,9 @@ import {
 } from "./utils/constants";
 import { readUntilPrompt, runProgram, writeLines } from "./utils/functions";
 
+import sampleProgramBlinkLoop from "./programs/python/blink_loop.py?raw";
+import sampleProgramImagePixel from "./programs/python/image_pixel.py?raw";
+
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-python";
@@ -45,28 +48,8 @@ declare global {
 }
 
 const samplePythonPrograms: readonly string[] = [
-  `from spike import PrimeHub
-  
-hub = PrimeHub()
-hub.light_matrix.off()
-hub.light_matrix.set_pixel(2, 2, 80)
-hub.light_matrix.set_pixel(3, 3, 80)
-hub.light_matrix.set_pixel(2, 3, 80)
-hub.light_matrix.set_pixel(3, 2, 80)
-hub.light_matrix.set_pixel(4, 4, 80)
-hub.light_matrix.set_pixel(0, 0, 80)
-`,
-
-  `import hub
-
-from time import sleep
-
-stat = True
-for _ in range(4):
-    hub.display.invert(stat)
-    sleep(1)
-    stat = not stat
-`,
+  sampleProgramImagePixel,
+  sampleProgramBlinkLoop,
 ];
 
 function App() {
