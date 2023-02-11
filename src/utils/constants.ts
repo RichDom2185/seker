@@ -1,3 +1,5 @@
+import AceEditor from "react-ace";
+
 export const BAUD_RATE_SPIKE_PRIME = 115200;
 export const KEYBOARD_INTERRUPT = "\x03";
 export const END_OF_TRANSMISSION = "\x04";
@@ -13,3 +15,19 @@ export const PASTE_MODE_CANCEL = "\x03";
 export const RAW_MODE_ENTER = "\x01";
 export const RAW_MODE_COMPILE = "\x04";
 export const RAW_MODE_EXIT = "\x02";
+
+export enum Languages {
+  SOURCE_THREE = "Source §3",
+  PYTHON = "Python",
+}
+
+export const supportedLanguages = [
+  Languages.PYTHON,
+] as const satisfies readonly Languages[];
+
+export const languageToModeMap = Object.freeze({
+  [Languages.PYTHON]: "python",
+  [Languages.SOURCE_THREE]: "javascript",
+}) satisfies {
+  [l in Languages]: React.ComponentProps<typeof AceEditor>["mode"];
+};

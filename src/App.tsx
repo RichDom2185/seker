@@ -7,7 +7,10 @@ import {
   BAUD_RATE_SPIKE_PRIME,
   END_OF_TRANSMISSION,
   KEYBOARD_INTERRUPT,
+  Languages,
+  languageToModeMap,
   PROGRAM_PLACEHOLDER,
+  supportedLanguages,
 } from "./utils/constants";
 import { readUntilPrompt, runProgram, writeLines } from "./utils/functions";
 
@@ -55,11 +58,23 @@ const samplePythonPrograms: readonly string[] = [
 function App() {
   const [sourceProgram, setSourceProgram] = useState(PROGRAM_PLACEHOLDER);
   const [jsonProgram, setJsonProgram] = useState("");
-  const [pythonProgram, setPythonProgram] = useState(
-    samplePythonPrograms.at(
-      Math.floor(Math.random() * samplePythonPrograms.length)
-    )!
-  );
+  const [languageMode, setLanguageMode] = useState(Languages.PYTHON);
+  const [program, setProgram] = useState(samplePythonPrograms[0]);
+
+  // TODO: Memoize using useCallback
+  const handleClickRun = async () => {
+    const port = await navigator.serial.requestPort();
+    await port.open({ baudRate: BAUD_RATE_SPIKE_PRIME });
+
+    await writeLines(port, KEYBOARD_INTERRUPT);
+
+    await readUntilPrompt(port, 2000);
+    await runProgram(port, program);
+
+    // Soft reboot
+    await writeLines(port, END_OF_TRANSMISSION);
+    port.close();
+  };
 
   useEffect(() => {
     const decodedFragment = parse(location.hash);
@@ -74,31 +89,25 @@ function App() {
   return (
     <div className="App">
       <h2>SEKER: Source–SPIKE Prime Runner</h2>
-      <button
-        onClick={async () => {
-          const port = await navigator.serial.requestPort();
-          await port.open({ baudRate: BAUD_RATE_SPIKE_PRIME });
-
-          await writeLines(port, KEYBOARD_INTERRUPT);
-
-          await readUntilPrompt(port, 2000);
-          await runProgram(port, pythonProgram);
-
-          // Soft reboot
-          await writeLines(port, END_OF_TRANSMISSION);
-          port.close();
-        }}
+      <select
+        name="languageMode"
+        id="languagemode"
+        value={languageMode}
+        onChange={(e) => setLanguageMode(e.target.value as Languages)}
       >
-        Run on Device
-      </button>
-      <p>Python code:</p>
+        {supportedLanguages.map((language) => (
+          <option value={language}>{language}</option>
+        ))}
+      </select>
+      <button onClick={handleClickRun}>Run on Device</button>
+      <p>{languageMode} code:</p>
       <AceEditor
-        name="pythonEditor"
-        mode="python"
+        name="editor"
+        mode={languageToModeMap[languageMode]}
         theme="source"
         width="100%"
-        onChange={setPythonProgram}
-        value={pythonProgram}
+        onChange={setProgram}
+        value={program}
       />
       <hr style={{ marginBlock: "1.5em" }} />
       <p>
