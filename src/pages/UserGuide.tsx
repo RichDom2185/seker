@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Languages } from "./utils/constants";
+import { Languages } from "../utils/constants";
 
 const clickableTextStyle: React.CSSProperties = {
   cursor: "pointer",

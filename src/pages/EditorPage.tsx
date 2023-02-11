@@ -2,10 +2,9 @@ import { decompressFromEncodedURIComponent } from "lz-string";
 import { parse } from "query-string";
 import { EventHandler, useEffect, useState } from "react";
 import AceEditor from "react-ace";
-import "./App.css";
-import SampleProgramSidebar from "./components/sidebar/SampleProgramSidebar";
-import { parse_into_json } from "./libs/parser";
-import UserGuide from "./UserGuide";
+import "../App.css";
+import SampleProgramSidebar from "../components/sidebar/SampleProgramSidebar";
+import { parse_into_json } from "../libs/parser";
 import {
   BAUD_RATE_SPIKE_PRIME,
   END_OF_TRANSMISSION,
@@ -15,8 +14,9 @@ import {
   PROGRAM_PLACEHOLDER_PYTHON,
   PROGRAM_PLACEHOLDER_SOURCE_THREE,
   supportedLanguages,
-} from "./utils/constants";
-import { readUntilPrompt, runProgram, writeLines } from "./utils/functions";
+} from "../utils/constants";
+import { readUntilPrompt, runProgram, writeLines } from "../utils/functions";
+import UserGuide from "./UserGuide";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -55,7 +55,7 @@ const languagePlaceholders = {
   [Languages.SOURCE_THREE]: PROGRAM_PLACEHOLDER_SOURCE_THREE,
 };
 
-function App() {
+const EditorPage: React.FC = () => {
   const [jsonProgram, setJsonProgram] = useState("");
   const [languageMode, setLanguageMode] = useState(Languages.PYTHON);
   const [program, setProgram] = useState(languagePlaceholders[languageMode]);
@@ -151,6 +151,6 @@ function App() {
       />
     </div>
   );
-}
+};
 
-export default App;
+export default EditorPage;
