@@ -85,6 +85,11 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    setProgram(languagePlaceholders[languageMode]);
+    setJsonProgram("");
+  }, [languageMode, setProgram]);
+
   return (
     <div className="App">
       <h2>SEKER: Source–SPIKE Prime Runner</h2>
