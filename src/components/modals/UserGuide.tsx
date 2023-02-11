@@ -12,7 +12,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import { Languages } from "../utils/constants";
+import { Languages } from "../../utils/constants";
 
 const UserGuide: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

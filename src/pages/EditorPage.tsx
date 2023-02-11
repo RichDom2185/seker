@@ -18,6 +18,7 @@ import { decompressFromEncodedURIComponent } from "lz-string";
 import { parse } from "query-string";
 import React, { useEffect, useState } from "react";
 import AceEditor from "react-ace";
+import UserGuide from "../components/modals/UserGuide";
 import SampleProgramSidebar from "../components/sidebar/SampleProgramSidebar";
 import { parse_into_json } from "../libs/parser";
 import {
@@ -36,7 +37,6 @@ import {
   runProgram,
   writeLines,
 } from "../utils/functions";
-import UserGuide from "./UserGuide";
 
 import interpreterPrefix from "../libs/interpreter_prefix.py?raw";
 import interpreterSuffix from "../libs/interpreter_suffix.py?raw";
