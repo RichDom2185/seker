@@ -74,6 +74,15 @@ function App() {
     port.close();
   };
 
+  // TODO: Memoize using useCallback
+  const handleParseJson = () => {
+    try {
+      setJsonProgram(parse_into_json(program));
+    } catch (e) {
+      setJsonProgram("[ERROR] " + e);
+    }
+  };
+
   useEffect(() => {
     const decodedFragment = parse(location.hash);
     const decodedProgram = decompressFromEncodedURIComponent(
@@ -115,6 +124,9 @@ function App() {
       >
         Run on Device
       </button>
+      {languageMode === Languages.SOURCE_THREE && (
+        <button onClick={handleParseJson}>Parse into JSON</button>
+      )}
       <AceEditor
         name="editor"
         mode={languageToModeMap[languageMode]}
@@ -123,17 +135,6 @@ function App() {
         onChange={setProgram}
         value={program}
       />
-      <button
-        onClick={() => {
-          try {
-            setJsonProgram(parse_into_json(program));
-          } catch (e) {
-            setJsonProgram("[ERROR] " + e);
-          }
-        }}
-      >
-        Parse into JSON
-      </button>
       {jsonProgram && (
         <p>
           JSON Code:
