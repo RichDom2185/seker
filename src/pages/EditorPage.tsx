@@ -2,10 +2,13 @@ import {
   Box,
   Button,
   ButtonGroup,
+  GridItem,
   Heading,
   HStack,
   Select,
+  SimpleGrid,
   Spacer,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import { decompressFromEncodedURIComponent } from "lz-string";
@@ -84,65 +87,79 @@ const EditorPage: React.FC = () => {
 
   return (
     <Box className="App">
-      <Heading>SEKER: Source–SPIKE Prime Runner</Heading>
-      <UserGuide />
-      {languageMode === Languages.SOURCE_THREE && (
-        <Text fontStyle="italic" color="red">
-          Full support for {Languages.SOURCE_THREE} Programs is coming soon!
-        </Text>
-      )}
-      <HStack>
-        <Text fontWeight="bold">Select language mode:</Text>
-        <Select
-          size="sm"
-          variant="filled"
-          width="fit-content"
-          name="languageMode"
-          id="languagemode"
-          value={languageMode}
-          onChange={(e) => setLanguageMode(e.target.value as Languages)}
-        >
-          {supportedLanguages.map((language) => (
-            <option key={language} value={language}>
-              {language}
-            </option>
-          ))}
-        </Select>
-        <Spacer />
-        <ButtonGroup size="sm">
-          <Button
-            onClick={handleClickRun}
-            // TODO: Support running Source Programs
-            isDisabled={languageMode === Languages.SOURCE_THREE}
-          >
-            Run on Device
-          </Button>
-          {languageMode === Languages.SOURCE_THREE && (
-            <Button onClick={handleParseJson}>Parse into JSON</Button>
-          )}
-        </ButtonGroup>
-      </HStack>
-      <AceEditor
-        name="editor"
-        mode={languageToModeMap[languageMode]}
-        theme="source"
-        width="100%"
-        onChange={setProgram}
-        value={program}
-        wrapEnabled
-      />
-      {jsonProgram && (
-        <p>
-          JSON Code:
-          <br />
-          {jsonProgram}
-        </p>
-      )}
-      <hr style={{ marginBlock: "1.5em" }} />
-      <SampleProgramSidebar
-        languageMode={languageMode}
-        setProgramState={setProgram}
-      />
+      <SimpleGrid
+        columns={{ sm: 1, lg: 3 }}
+        spacingX={{ sm: 0, lg: 8 }}
+        spacingY={8}
+      >
+        <GridItem colSpan={2}>
+          <Stack>
+            <Heading>SEKER: Source–SPIKE Prime Runner</Heading>
+            <UserGuide />
+            {languageMode === Languages.SOURCE_THREE && (
+              <Text fontStyle="italic" color="red">
+                Full support for {Languages.SOURCE_THREE} Programs is coming
+                soon!
+              </Text>
+            )}
+            <HStack>
+              <Text fontWeight="bold">Select language mode:</Text>
+              <Select
+                size="sm"
+                variant="filled"
+                width="fit-content"
+                name="languageMode"
+                id="languagemode"
+                value={languageMode}
+                onChange={(e) => setLanguageMode(e.target.value as Languages)}
+              >
+                {supportedLanguages.map((language) => (
+                  <option key={language} value={language}>
+                    {language}
+                  </option>
+                ))}
+              </Select>
+              <Spacer />
+              <ButtonGroup size="sm">
+                <Button
+                  onClick={handleClickRun}
+                  // TODO: Support running Source Programs
+                  isDisabled={languageMode === Languages.SOURCE_THREE}
+                >
+                  Run on Device
+                </Button>
+                {languageMode === Languages.SOURCE_THREE && (
+                  <Button onClick={handleParseJson}>Parse into JSON</Button>
+                )}
+              </ButtonGroup>
+            </HStack>
+            <Box>
+              <AceEditor
+                name="editor"
+                mode={languageToModeMap[languageMode]}
+                theme="source"
+                width="100%"
+                onChange={setProgram}
+                value={program}
+                wrapEnabled
+              />
+            </Box>
+            {jsonProgram && (
+              <p>
+                JSON Code:
+                <br />
+                {jsonProgram}
+              </p>
+            )}
+          </Stack>
+        </GridItem>
+        <GridItem>
+          <SampleProgramSidebar
+            languageMode={languageMode}
+            setProgramState={setProgram}
+          />
+        </GridItem>
+      </SimpleGrid>
     </Box>
   );
 };
