@@ -1,3 +1,5 @@
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Box, Button, HStack, Text } from "@chakra-ui/react";
 import React from "react";
 
 type Props = {
@@ -7,10 +9,24 @@ type Props = {
 
 const SampleProgramListItem: React.FC<Props> = ({ label, onClick }) => {
   return (
-    <p>
-      {label}&nbsp;
-      <button onClick={onClick}>Load</button>
-    </p>
+    <Box>
+      <Button
+        size="sm"
+        variant="link"
+        fontWeight="normal"
+        width="full"
+        iconSpacing="auto"
+        rightIcon={
+          <HStack spacing={1}>
+            <Text>Load</Text>
+            <ArrowForwardIcon />
+          </HStack>
+        }
+        onClick={onClick}
+      >
+        {label}
+      </Button>
+    </Box>
   );
 };
 

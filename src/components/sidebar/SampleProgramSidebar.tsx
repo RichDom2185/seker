@@ -1,3 +1,13 @@
+import {
+  Box,
+  Card,
+  CardBody,
+  CardHeader,
+  Heading,
+  Stack,
+  StackDivider,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { Languages } from "../../utils/constants";
 import SampleProgramListItem from "./SampleProgramListItem";
@@ -25,23 +35,34 @@ const SampleProgramSidebar: React.FC<Props> = ({
 }) => {
   const programs = getSampleProgramsFrom(languageMode);
   return (
-    <div>
-      <p>Sample {languageMode} programs:</p>
-      {programs.length == 0 ? (
-        <p>No sample programs found.</p>
-      ) : (
-        programs.map((program, i) => {
-          return (
-            <SampleProgramListItem
-              // Safe as programs are read only
-              key={i}
-              label={`Sample Program ${i + 1}`}
-              onClick={() => setProgramState(program)}
-            />
-          );
-        })
-      )}
-    </div>
+    <Card>
+      <CardHeader>
+        <Box>
+          <Heading size="md">Sample {languageMode} Programs</Heading>
+          <Text>Click on a program below to load them into the editor.</Text>
+        </Box>
+      </CardHeader>
+      <CardBody paddingTop={0}>
+        <Stack divider={<StackDivider />}>
+          {programs.length == 0 ? (
+            <Text fontStyle="italic" color="gray">
+              No sample programs found.
+            </Text>
+          ) : (
+            programs.map((program, i) => {
+              return (
+                <SampleProgramListItem
+                  // Safe as programs are read only
+                  key={i}
+                  label={`Sample Program ${i + 1}`}
+                  onClick={() => setProgramState(program)}
+                />
+              );
+            })
+          )}
+        </Stack>
+      </CardBody>
+    </Card>
   );
 };
 
