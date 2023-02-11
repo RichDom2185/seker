@@ -15,6 +15,8 @@ import SampleProgramListItem from "./SampleProgramListItem";
 import sampleProgramBlinkLoop from "../../programs/python/blink_loop.py?raw";
 import sampleProgramImagePixel from "../../programs/python/image_pixel.py?raw";
 
+import sampleProgramZigzag from "../../programs/source3/zigzag.js?raw";
+
 type Props = {
   languageMode: Languages;
   setProgramState: React.Dispatch<React.SetStateAction<string>>;
@@ -25,7 +27,7 @@ const getSampleProgramsFrom = (language: Languages): ReadonlyArray<string> => {
     case Languages.PYTHON:
       return [sampleProgramImagePixel, sampleProgramBlinkLoop];
     case Languages.SOURCE_THREE:
-      return [];
+      return [sampleProgramZigzag];
   }
 };
 
