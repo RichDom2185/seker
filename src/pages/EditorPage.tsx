@@ -1,3 +1,13 @@
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Heading,
+  HStack,
+  Select,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
 import { decompressFromEncodedURIComponent } from "lz-string";
 import { parse } from "query-string";
 import React, { useEffect, useState } from "react";
@@ -73,36 +83,45 @@ const EditorPage: React.FC = () => {
   }, [languageMode, setProgram]);
 
   return (
-    <div className="App">
-      <h2>SEKER: Source–SPIKE Prime Runner</h2>
+    <Box className="App">
+      <Heading>SEKER: Source–SPIKE Prime Runner</Heading>
       <UserGuide />
       {languageMode === Languages.SOURCE_THREE && (
-        <p>
-          <em>Support for {Languages.SOURCE_THREE} Programs is coming soon!</em>
-        </p>
+        <Text fontStyle="italic" color="red">
+          Full support for {Languages.SOURCE_THREE} Programs is coming soon!
+        </Text>
       )}
-      <select
-        name="languageMode"
-        id="languagemode"
-        value={languageMode}
-        onChange={(e) => setLanguageMode(e.target.value as Languages)}
-      >
-        {supportedLanguages.map((language) => (
-          <option key={language} value={language}>
-            {language}
-          </option>
-        ))}
-      </select>
-      <button
-        onClick={handleClickRun}
-        // TODO: Support running Source Programs
-        disabled={languageMode === Languages.SOURCE_THREE}
-      >
-        Run on Device
-      </button>
-      {languageMode === Languages.SOURCE_THREE && (
-        <button onClick={handleParseJson}>Parse into JSON</button>
-      )}
+      <HStack>
+        <Text fontWeight="bold">Select language mode:</Text>
+        <Select
+          size="sm"
+          variant="filled"
+          width="fit-content"
+          name="languageMode"
+          id="languagemode"
+          value={languageMode}
+          onChange={(e) => setLanguageMode(e.target.value as Languages)}
+        >
+          {supportedLanguages.map((language) => (
+            <option key={language} value={language}>
+              {language}
+            </option>
+          ))}
+        </Select>
+        <Spacer />
+        <ButtonGroup size="sm">
+          <Button
+            onClick={handleClickRun}
+            // TODO: Support running Source Programs
+            isDisabled={languageMode === Languages.SOURCE_THREE}
+          >
+            Run on Device
+          </Button>
+          {languageMode === Languages.SOURCE_THREE && (
+            <Button onClick={handleParseJson}>Parse into JSON</Button>
+          )}
+        </ButtonGroup>
+      </HStack>
       <AceEditor
         name="editor"
         mode={languageToModeMap[languageMode]}
@@ -124,7 +143,7 @@ const EditorPage: React.FC = () => {
         languageMode={languageMode}
         setProgramState={setProgram}
       />
-    </div>
+    </Box>
   );
 };
 
