@@ -55,9 +55,6 @@ const languagePlaceholders = {
 };
 
 function App() {
-  const [sourceProgram, setSourceProgram] = useState(
-    PROGRAM_PLACEHOLDER_SOURCE_THREE
-  );
   const [jsonProgram, setJsonProgram] = useState("");
   const [languageMode, setLanguageMode] = useState(Languages.PYTHON);
   const [program, setProgram] = useState(languagePlaceholders[languageMode]);
@@ -83,13 +80,19 @@ function App() {
       decodedFragment.prgrm as string
     );
     if (decodedProgram) {
-      setSourceProgram(decodedProgram);
+      setLanguageMode(Languages.SOURCE_THREE);
+      setProgram(decodedProgram);
     }
   }, []);
 
   return (
     <div className="App">
       <h2>SEKER: Source–SPIKE Prime Runner</h2>
+      {languageMode === Languages.SOURCE_THREE && (
+        <p>
+          <em>Support for {Languages.SOURCE_THREE} Programs is coming soon!</em>
+        </p>
+      )}
       <select
         name="languageMode"
         id="languagemode"
@@ -100,12 +103,13 @@ function App() {
           <option value={language}>{language}</option>
         ))}
       </select>
-      <button onClick={handleClickRun}>Run on Device</button>
-      <p>{languageMode} code:</p>
-      <SampleProgramSidebar
-        languageMode={languageMode}
-        setProgramState={setProgram}
-      />
+      <button
+        onClick={handleClickRun}
+        // TODO: Support running Source Programs
+        disabled={languageMode === Languages.SOURCE_THREE}
+      >
+        Run on Device
+      </button>
       <AceEditor
         name="editor"
         mode={languageToModeMap[languageMode]}
@@ -114,16 +118,10 @@ function App() {
         onChange={setProgram}
         value={program}
       />
-      <hr style={{ marginBlock: "1.5em" }} />
-      <p>
-        <strong>NOTE:</strong> The following section is to demonstrate the
-        Source-to-JSON parser. Running of Source programs directly on the SPIKE
-        Prime is not available yet.
-      </p>
       <button
         onClick={() => {
           try {
-            setJsonProgram(parse_into_json(sourceProgram));
+            setJsonProgram(parse_into_json(program));
           } catch (e) {
             setJsonProgram("[ERROR] " + e);
           }
@@ -131,15 +129,6 @@ function App() {
       >
         Parse into JSON
       </button>
-      <p>Source §3 code:</p>
-      <AceEditor
-        name="sourceEditor"
-        mode="javascript"
-        theme="source"
-        width="100%"
-        onChange={setSourceProgram}
-        value={sourceProgram}
-      />
       {jsonProgram && (
         <p>
           JSON Code:
@@ -147,6 +136,11 @@ function App() {
           {jsonProgram}
         </p>
       )}
+      <hr style={{ marginBlock: "1.5em" }} />
+      <SampleProgramSidebar
+        languageMode={languageMode}
+        setProgramState={setProgram}
+      />
     </div>
   );
 }
