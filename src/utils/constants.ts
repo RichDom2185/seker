@@ -25,6 +25,7 @@ export enum Languages {
 
 export const supportedLanguages = [
   Languages.PYTHON,
+  Languages.SOURCE_THREE,
 ] as const satisfies readonly Languages[];
 
 export const languageToModeMap = Object.freeze({
