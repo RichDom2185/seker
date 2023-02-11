@@ -1,3 +1,4 @@
+import SampleProgramSidebar from "./components/sidebar/SampleProgramSidebar";
 import { decompressFromEncodedURIComponent } from "lz-string";
 import { parse } from "query-string";
 import { EventHandler, useEffect, useState } from "react";
@@ -9,13 +10,11 @@ import {
   KEYBOARD_INTERRUPT,
   Languages,
   languageToModeMap,
-  PROGRAM_PLACEHOLDER,
+  PROGRAM_PLACEHOLDER_PYTHON,
+  PROGRAM_PLACEHOLDER_SOURCE_THREE,
   supportedLanguages,
 } from "./utils/constants";
 import { readUntilPrompt, runProgram, writeLines } from "./utils/functions";
-
-import sampleProgramBlinkLoop from "./programs/python/blink_loop.py?raw";
-import sampleProgramImagePixel from "./programs/python/image_pixel.py?raw";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -50,16 +49,18 @@ declare global {
   }
 }
 
-const samplePythonPrograms: readonly string[] = [
-  sampleProgramImagePixel,
-  sampleProgramBlinkLoop,
-];
+const languagePlaceholders = {
+  [Languages.PYTHON]: PROGRAM_PLACEHOLDER_PYTHON,
+  [Languages.SOURCE_THREE]: PROGRAM_PLACEHOLDER_SOURCE_THREE,
+};
 
 function App() {
-  const [sourceProgram, setSourceProgram] = useState(PROGRAM_PLACEHOLDER);
+  const [sourceProgram, setSourceProgram] = useState(
+    PROGRAM_PLACEHOLDER_SOURCE_THREE
+  );
   const [jsonProgram, setJsonProgram] = useState("");
   const [languageMode, setLanguageMode] = useState(Languages.PYTHON);
-  const [program, setProgram] = useState(samplePythonPrograms[0]);
+  const [program, setProgram] = useState(languagePlaceholders[languageMode]);
 
   // TODO: Memoize using useCallback
   const handleClickRun = async () => {
@@ -101,6 +102,10 @@ function App() {
       </select>
       <button onClick={handleClickRun}>Run on Device</button>
       <p>{languageMode} code:</p>
+      <SampleProgramSidebar
+        languageMode={languageMode}
+        setProgramState={setProgram}
+      />
       <AceEditor
         name="editor"
         mode={languageToModeMap[languageMode]}
