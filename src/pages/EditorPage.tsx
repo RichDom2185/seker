@@ -56,7 +56,7 @@ const EditorPage: React.FC = () => {
     await writeLines(port, KEYBOARD_INTERRUPT);
 
     await readUntilPrompt(port, 2000);
-    await runProgram(port, program);
+    await runProgram(port, cleanProgram(program));
 
     // Soft reboot
     await writeLines(port, END_OF_TRANSMISSION);

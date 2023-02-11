@@ -81,3 +81,18 @@ export const runProgram = async (port: SerialPort, program: string) => {
 };
 
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Removes comments and extraneous newlines from a program
+ * string, according to Python syntax.
+ * @param program The Python program as a string
+ * @returns The cleaned string
+ */
+export const cleanProgram = (program: string) => {
+  return (
+    program
+      // FIXME: Edge cases
+      .replaceAll(/(^#|\s#) ?.*$/gm, "")
+      .replaceAll(/\n\n\n+/gm, "\n\n")
+  );
+};
