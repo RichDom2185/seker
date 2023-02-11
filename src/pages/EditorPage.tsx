@@ -148,7 +148,7 @@ const EditorPage: React.FC = () => {
                 )}
               </ButtonGroup>
             </HStack>
-            <Box>
+            <Box borderRadius={6} overflow="clip">
               <AceEditor
                 name="editor"
                 mode={languageToModeMap[languageMode]}
