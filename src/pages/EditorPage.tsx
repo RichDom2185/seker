@@ -59,6 +59,16 @@ const EditorPage: React.FC = () => {
 
   // TODO: Memoize using useCallback
   const handleClickRun = async () => {
+    if (languageMode === Languages.SOURCE_THREE) {
+      try {
+        parse_into_json(program);
+        setJsonProgram("");
+      } catch (e) {
+        setJsonProgram("[ERROR] " + e);
+        return;
+      }
+    }
+
     const port = await navigator.serial.requestPort();
     await port.open({ baudRate: BAUD_RATE_SPIKE_PRIME });
 
