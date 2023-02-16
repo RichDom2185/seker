@@ -3582,6 +3582,8 @@ import math
 import random
 import time
 
+import hub
+
 ######################
 # useful helpers
 ######################
@@ -4009,6 +4011,7 @@ def scan(t):
 
 # list follows strict stack discipline:
 # pop, extend, append at end of list
+
 
 # stash S starts out as empty stack
 S = []
