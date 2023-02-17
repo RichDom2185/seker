@@ -549,7 +549,7 @@ def cse_microcode_arr_acc_i(cmd):
     if type(ind) is dict and 'tag' in ind and ind['tag'] == 'prop':
         S.append(getattr(arr, ind['sym']))
     else:
-        S.append(arr[ind])
+        S.append(arr[int(ind)])
 
 
 def cse_microcode_arr_assmt_i(cmd):
