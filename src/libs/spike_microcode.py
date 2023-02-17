@@ -1,7 +1,10 @@
 builtin_microcode.update({
     'spike_showImage': lambda args: hub.display.show(hub.Image(args[0])),
     'spike_sleep': lambda args: time.sleep(args[0]),
-    'spike_getTemperature': lambda _: hub.temperature()
+    'spike_getTemperature': lambda _: hub.temperature(),
+    'spike_showText': lambda args:  hub.display.show(args[0]),
+    # hub.sound.beep expects int arguments, not float
+    'spike_playSound': lambda args: hub.sound.beep(int(args[0]), int(args[1]), hub.sound.SOUND_SIN),
 })
 
 # We need to update some stuff; aka run the following lines again.
