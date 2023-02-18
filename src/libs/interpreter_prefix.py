@@ -16,8 +16,6 @@ import math
 import random
 import time
 
-import hub
-
 ######################
 # useful helpers
 ######################

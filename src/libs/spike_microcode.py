@@ -1,3 +1,5 @@
+import hub
+
 builtin_microcode.update({
     'spike_showImage': lambda args: hub.display.show(hub.Image(args[0])),
     'spike_sleep': lambda args: time.sleep(args[0]),
