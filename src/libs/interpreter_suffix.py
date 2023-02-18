@@ -4,7 +4,6 @@
 C = [{'tag': 'push_undefined_if_needed_i'},
      {'tag': 'blk',
       'body': json.loads(json_string)}]
-print("input: " + str(C))
 
 # machine loops until control is empty
 while True:
