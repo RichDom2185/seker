@@ -11,7 +11,7 @@ type SerialPort = any;
 export const readUntilPrompt = async (
   serialPort: SerialPort,
   maxWaitTime: number = 0,
-  shouldPrintMessage: boolean = false
+  handleIncomingText: (text: string) => void = () => {}
 ) => {
   const reader = serialPort.readable.getReader();
   const handlerId =
@@ -25,16 +25,18 @@ export const readUntilPrompt = async (
   while (true) {
     const { value, done } = await reader.read();
     const text = new TextDecoder().decode(value as Uint8Array);
-    if (shouldPrintMessage) {
-      console.log(text);
-    }
     buffer += text;
     const lines = buffer.split("\n");
+    // Handle all complete lines
+    for (const line of lines.slice(0, lines.length)) {
+      handleIncomingText(line);
+    }
     buffer = lines[lines.length - 1]; // keep last line only
     if (buffer.substring(0, 4) == ">>> " || done) {
       if (maxWaitTime) {
         clearTimeout(handlerId);
       }
+      handleIncomingText(buffer);
       // Allow the serial port to be closed later.
       reader.releaseLock();
       return done;
@@ -76,7 +78,7 @@ export const runProgram = async (port: SerialPort, program: string) => {
     RAW_MODE_COMPILE,
     RAW_MODE_EXIT
   );
-  await readUntilPrompt(port, 0, true);
+  await readUntilPrompt(port, 0, console.log);
   console.log("Sending chunk complete...");
 };
 
