@@ -15,6 +15,9 @@ import SampleProgramListItem from "./SampleProgramListItem";
 import sampleProgramBlinkLoop from "../../programs/python/blink_loop.py?raw";
 import sampleProgramImagePixel from "../../programs/python/image_pixel.py?raw";
 
+import sampleProgramMotor from "../../programs/source3/motor.js?raw";
+import sampleProgramMusic from "../../programs/source3/music.js?raw";
+import sampleProgramSensor from "../../programs/source3/sensor.js?raw";
 import sampleProgramZigzag from "../../programs/source3/zigzag.js?raw";
 
 type Props = {
@@ -27,7 +30,12 @@ const getSampleProgramsFrom = (language: Languages): ReadonlyArray<string> => {
     case Languages.PYTHON:
       return [sampleProgramImagePixel, sampleProgramBlinkLoop];
     case Languages.SOURCE_THREE:
-      return [sampleProgramZigzag];
+      return [
+        sampleProgramZigzag,
+        sampleProgramMusic,
+        sampleProgramSensor,
+        sampleProgramMotor,
+      ];
   }
 };
 
