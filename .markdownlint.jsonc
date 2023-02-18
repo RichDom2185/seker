@@ -1,0 +1,6 @@
+{
+  "MD013": false, // Line length
+  "MD033": { // Inline HTML
+    "allowed_elements": ["sub", "sup", "br", "kbd"]
+  }
+}
