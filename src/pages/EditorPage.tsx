@@ -35,6 +35,7 @@ import {
   cleanProgram,
   readUntilPrompt,
   runProgram,
+  sleep,
   writeLines,
 } from "../utils/functions";
 
@@ -83,7 +84,15 @@ const EditorPage: React.FC = () => {
         // We split the program into chunks to maximise the amount of program space we can have.
         await runProgram(port, cleanProgram(interpreterPrefix));
         await runProgram(port, cleanProgram(spikeMicrocode));
-        await runProgram(port, `json_string = '${parse_into_json(program)}'\n`);
+
+        const parsedProgram = parse_into_json(program);
+        const chunkSize = 1000; // 100
+        await runProgram(port, `json_string = ''\n`);
+        for (let i = 0; i < parsedProgram.length; i += chunkSize) {
+          const chunk = parsedProgram.slice(i, i + chunkSize);
+          await runProgram(port, `json_string += '${chunk}'\n`);
+          await sleep(100); // 10
+        }
         await runProgram(port, cleanProgram(interpreterSuffix));
         break;
     }
