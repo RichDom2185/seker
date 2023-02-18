@@ -40,6 +40,7 @@ import {
 } from "../utils/functions";
 
 import interpreterPrefix from "../libs/interpreter_prefix.py?raw";
+import interpreterPrefix2 from "../libs/interpreter_prefix2.py?raw";
 import interpreterSuffix from "../libs/interpreter_suffix.py?raw";
 import spikeMicrocode from "../libs/spike_microcode.py?raw";
 
@@ -83,6 +84,7 @@ const EditorPage: React.FC = () => {
       case Languages.SOURCE_THREE:
         // We split the program into chunks to maximise the amount of program space we can have.
         await runProgram(port, cleanProgram(interpreterPrefix));
+        await runProgram(port, cleanProgram(interpreterPrefix2));
         await runProgram(port, cleanProgram(spikeMicrocode));
 
         const parsedProgram = parse_into_json(program);
