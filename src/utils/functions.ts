@@ -69,6 +69,34 @@ export const writeLines = async (
   writer.releaseLock();
 };
 
+/**
+ * Cleans up raw serial output, only indicating actual messages.
+ * @param text The raw output from the serial interface to be cleaned.
+ * @returns The cleaned output, or undefined if the input is to be ignored.
+ */
+const processRawOutput = (text: string) => {
+  let cleaned = text.trim();
+
+  // Ignore prompts
+  const prompts = [">>>", ">OK", ">"]; // Ordering is important
+  for (const prompt of prompts) {
+    if (cleaned.startsWith(prompt)) {
+      cleaned = cleaned.substring(prompt.length).trim();
+    }
+  }
+
+  // Remove raw mode prompts
+  const rawModeInfo = "raw REPL; CTRL-B to exit";
+  if (cleaned.startsWith(rawModeInfo)) {
+    cleaned = cleaned.substring(rawModeInfo.length).trim();
+  }
+
+  // Don't need to handle empty output
+  if (!cleaned) return;
+
+  return cleaned;
+};
+
 export const runProgram = async (port: SerialPort, program: string) => {
   console.log("Sending program chunk...");
   await writeLines(
@@ -78,7 +106,10 @@ export const runProgram = async (port: SerialPort, program: string) => {
     RAW_MODE_COMPILE,
     RAW_MODE_EXIT
   );
-  await readUntilPrompt(port, 0, console.log);
+  await readUntilPrompt(port, 0, (text) => {
+    const cleaned = processRawOutput(text);
+    if (cleaned) console.log(cleaned);
+  });
   console.log("Sending chunk complete...");
 };
 
