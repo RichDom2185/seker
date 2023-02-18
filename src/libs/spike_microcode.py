@@ -6,7 +6,7 @@ builtin_microcode.update({
     'spike_sleep': lambda args: time.sleep(args[0]),
     'spike_getTemperature': lambda _: hub.temperature(),
     'spike_showText': lambda args:  hub.display.show(args[0]),
-    # hub.sound.beep expects int arguments, not float
+    # `hub.sound.beep` expects int arguments, not float
     'spike_playSound': lambda args: hub.sound.beep(int(args[0]), int(args[1]), hub.sound.SOUND_SIN),
 
     # We expect students to only have one of each sensor (as it comes from the base kit).

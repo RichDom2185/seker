@@ -31,7 +31,7 @@ export const readUntilPrompt = async (
     for (const line of lines.slice(0, lines.length)) {
       handleIncomingText(line);
     }
-    buffer = lines[lines.length - 1]; // keep last line only
+    buffer = lines[lines.length - 1]; // Keep last line only
     if (buffer.substring(0, 4) == ">>> " || done) {
       if (maxWaitTime) {
         clearTimeout(handlerId);
