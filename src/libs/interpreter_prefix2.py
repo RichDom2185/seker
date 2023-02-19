@@ -1,3 +1,6 @@
+# To be used for later evaluation, but called here so that it's only imported once
+from ujson import loads
+
 cse_microcode = {
     ##########################
     # expressions of Source §3
