@@ -11,7 +11,6 @@
 # comment this for testing with Python 3
 # uncomment this for testing with MicroPython
 
-import json
 import math
 import random
 import time
@@ -21,7 +20,7 @@ import time
 ######################
 
 
-def reduce(f, iterable, init):
+def _reduce(f, iterable, init):
     # Reimplement reduce because functools not in Micropython
     res = init
     for x in iterable:
@@ -29,14 +28,14 @@ def reduce(f, iterable, init):
     return res
 
 
-def scheme_map(f, iterable):
+def _scheme_map(f, iterable):
     '''
     Maps like Scheme's `map`, not like Python's `map`
     '''
     def g(acc, x):
         acc.append(f(x))
         return acc
-    return reduce(g, iterable, [])
+    return _reduce(g, iterable, [])
 
 ######################
 # JavaScript values
@@ -52,13 +51,13 @@ Null = None
 Undefined = ...
 
 
-def is_closure(x):
+def _is_closure(x):
     # more pythonic would be isinstance(v, Dict),
     # but package typing not available in Micropython
     return type(x) is dict and 'tag' in x and x['tag'] == 'closure'
 
 
-def is_builtin(x):
+def _is_builtin(x):
     return type(x) is dict and 'tag' in x and x['tag'] == 'builtin'
 
 
@@ -79,10 +78,10 @@ def value_to_string(x):
     elif is_string(x):
         # surround characters with double quotes;
         # escape double quote characters within string
-        return '"' + reduce(lambda s, t: s + ('\\"' if t == '"' else t), x, '') + '"'
-    elif is_closure(x):
+        return '"' + _reduce(lambda s, t: s + ('\\"' if t == '"' else t), x, '') + '"'
+    elif _is_closure(x):
         return '<closure>'
-    elif is_builtin(x):
+    elif _is_builtin(x):
         return '<builtin>'
     elif type(x) is float:
         return str(int(x)) if x == math.floor(x) else str(x)
@@ -94,7 +93,7 @@ def value_to_string(x):
 ########################
 
 
-binop_microcode = {
+_binop_microcode = {
     '+': lambda x, y: x + y if (type(x) is float and type(y) is float) or
     (type(x) is str and type(y) is str)
     else raise_exception("+ expects two numbers or two strings"),
@@ -113,10 +112,10 @@ binop_microcode = {
 
 def apply_binop(op, v2, v1):
     # `v2` is popped before `v1`
-    return binop_microcode[op](v1, v2)
+    return _binop_microcode[op](v1, v2)
 
 
-unop_microcode = {
+_unop_microcode = {
     '-unary': lambda x: - x,
     '!': lambda x: not x if x == bool(x)
     else raise_exception('! expects boolean')
@@ -124,10 +123,10 @@ unop_microcode = {
 
 
 def apply_unop(op, v):
-    return unop_microcode[op](v)
+    return _unop_microcode[op](v)
 
 
-def builtin_microcode_display(args):
+def _builtin_microcode_display(args):
     s = str(args[0])
     if len(args) == 2:
         if type(args[1]) is str:
@@ -140,7 +139,7 @@ def builtin_microcode_display(args):
     return args[0]
 
 
-def builtin_microcode_error(args):
+def _builtin_microcode_error(args):
     s = str(args[0])
     if len(args) == 2:
         if type(args[1]) is str:
@@ -152,44 +151,44 @@ def builtin_microcode_error(args):
     raise Exception(s)
 
 
-def builtin_microcode_clz32(args):
+def _builtin_microcode_clz32(args):
     if args[0] < 0:
         return 0
     return float(32 - int(args[0]).bit_length())
 
 
-def builtin_microcode_set_head(args):
+def _builtin_microcode_set_head(args):
     args[0][0] = args[1]
     return Undefined
 
 
-def builtin_microcode_set_tail(args):
+def _builtin_microcode_set_tail(args):
     args[0][1] = args[1]
     return Undefined
 
 
-def builtin_microcode_list(args):
+def _builtin_microcode_list(args):
     result = Null
     while args:
         result = [args.pop(), result]
     return result
 
 
-def is_list(val):
+def _is_list(val):
     return val == Null or \
         (type(val) is list and len(val) == 2 and
-            is_list(val[1]))
+            _is_list(val[1]))
 
 
-def builtin_microcode_is_list(args):
-    return is_list(args[0])
+def _builtin_microcode_is_list(args):
+    return _is_list(args[0])
 
 
 builtin_microcode = {
-    'display': lambda args: builtin_microcode_display(args),
+    'display': lambda args: _builtin_microcode_display(args),
     'get_time': lambda _: float(int(time.time() * 1000)),
     'stringify': lambda args: str(args[0]),
-    'error': builtin_microcode_error,
+    'error': _builtin_microcode_error,
     'prompt': lambda args: input(args[0]),
     'is_number': lambda args: type(args[0]) is float,
     'is_string': lambda args: type(args[0]) is str,
@@ -212,7 +211,7 @@ builtin_microcode = {
     'math_ceil': lambda args: float(math.ceil(args[0])),
     'math_cbrt': lambda args: float(args[0]**(1/3)),
     'math_expm1': lambda args: float(math.expm1(args[0])),
-    'math_clz32': lambda args: float(builtin_microcode_clz32(args[0])),
+    'math_clz32': lambda args: float(_builtin_microcode_clz32(args[0])),
     'math_cos': lambda args: float(math.cos(args[0])),
     'math_cosh': lambda args: float(math.cosh(args[0])),
     'math_exp': lambda args: float(math.exp(args[0])),
@@ -240,19 +239,19 @@ builtin_microcode = {
     'head': lambda args: args[0][0],
     'tail': lambda args: args[0][1],
     'is_null': lambda args: args[0] is None,
-    'set_head': builtin_microcode_set_head,
-    'set_tail': builtin_microcode_set_tail,
+    'set_head': _builtin_microcode_set_head,
+    'set_tail': _builtin_microcode_set_tail,
     'array_length': lambda args: len(args[0]),
     'is_array': lambda args: type(args[0]) is list,
-    'list': builtin_microcode_list,
-    'is_list': builtin_microcode_is_list,
-    'display_list': builtin_microcode_display,  # FIXME
+    'list': _builtin_microcode_list,
+    'is_list': _builtin_microcode_is_list,
+    'display_list': _builtin_microcode_display,  # FIXME
     # stream_tail: moved to prelude
     # stream: moved to prelude
 }
 
 
-def apply_builtin(builtin_symbol, arity, args):
+def _apply_builtin(builtin_symbol, arity, args):
     return builtin_microcode[builtin_symbol](args)
 
 ####################
@@ -322,25 +321,25 @@ global_frame['MotorPair'] = MotorPair
 # environments are None or
 # pairs whose head is a frame
 # and whose tail is an environment
-empty_environment = None
-global_environment = (global_frame, empty_environment)
+_empty_environment = None
+_global_environment = (global_frame, _empty_environment)
 
 
-def lookup(x, e):
-    res = lookup_(x, e, 0)
+def _lookup(x, e):
+    res = _lookup_(x, e, 0)
     return res[0]
 
 
-def lookup_(x, e, i):
+def _lookup_(x, e, i):
     if e == None:
         raise Exception('unbound name: ' + x)
     if x in e[0]:
         return (e[0][x], i)
     else:
-        return lookup_(x, e[1], i + 1)
+        return _lookup_(x, e[1], i + 1)
 
 
-def extend(xs, vs, e):
+def _extend(xs, vs, e):
     vi = iter(vs)
     result = {}
     for x in xs:
@@ -359,20 +358,20 @@ def replace(x, v, e):
 ####################
 
 
-def value_producing(cmd):
+def _value_producing(cmd):
     tag = cmd['tag']
     return tag != 'let' and \
         tag != 'const' and \
         tag != 'fun' and \
-        (tag != 'blk' or value_producing(cmd['body'])) and \
-        (tag != 'seq' or any(scheme_map(value_producing, cmd['stmts'])))
+        (tag != 'blk' or _value_producing(cmd['body'])) and \
+        (tag != 'seq' or any(_scheme_map(_value_producing, cmd['stmts'])))
 
 
 def handle_sequence(seq):
     value_produced = False
     result = []
     for cmd in seq:
-        if value_producing(cmd):
+        if _value_producing(cmd):
             if value_produced:
                 result.append({'tag': 'pop_i'})
             else:
@@ -386,19 +385,19 @@ def handle_sequence(seq):
 ####################
 
 
-def scan(t):
+def _scan(t):
     '''
     Scans out the declarations from (possibly nested)
     sequences of statements, ignoring blocks
     '''
     def f(acc, x):
-        acc.extend(scan(x))
+        acc.extend(_scan(x))
         return acc
     tag = t['tag']
     if tag == 'seq':
-        return reduce(f,
-                      t['stmts'],
-                      [])
+        return _reduce(f,
+                       t['stmts'],
+                       [])
     elif tag == 'let' or tag == 'const' or tag == 'fun':
         return [t['sym']]
     else:
@@ -454,7 +453,7 @@ S = []
 # environment E starts out as
 # the global environment
 
-E = global_environment
+E = _global_environment
 
 ###############################
 # the machine
@@ -468,7 +467,7 @@ E = global_environment
 
 
 def cse_microcode_nam(cmd):
-    v = lookup(cmd['sym'], E)
+    v = _lookup(cmd['sym'], E)
     # more pythonic would be isinstance(v, Dict),
     # but package typing not available in Micropython
     if type(v) is dict and 'tag' in v and v['tag'] == 'unassigned':
@@ -484,7 +483,7 @@ def cse_microcode_app_i(cmd):
         args.append(S.pop())
     sf = S.pop()
     if sf['tag'] == 'builtin':
-        S.append(apply_builtin(sf['sym'], arity, args))
+        S.append(_apply_builtin(sf['sym'], arity, args))
     elif sf['tag'] == 'closure':
         global E
         if not C or C[0]['tag'] == 'reset':  # tail call
@@ -499,7 +498,7 @@ def cse_microcode_app_i(cmd):
         last_arg = args[-1]
         # Source allows last arg to be spread: ...x
         if type(last_arg) is dict and last_arg['tag'] == 'spread':
-            spread_list = lookup(last_arg['sym'], E)
+            spread_list = _lookup(last_arg['sym'], E)
             if not (type(spread_list) is list):
                 raise Exception('Source only spreads arrays')
             args.pop()
@@ -521,15 +520,15 @@ def cse_microcode_app_i(cmd):
             raise Exception('too many arguments')
         if len(args) < len(prms):
             raise Exception('too few arguments')
-        E = extend(sf['prms'], args, E)
+        E = _extend(sf['prms'], args, E)
 
 
 def cse_microcode_blk(cmd):
     global E
-    locals = scan(cmd['body'])
-    unassigneds = scheme_map(lambda _: {'tag': 'unassigned'}, locals)
+    locals = _scan(cmd['body'])
+    unassigneds = _scheme_map(lambda _: {'tag': 'unassigned'}, locals)
     C.extend([{'tag': 'env_i', 'env': E}, cmd['body']])
-    E = extend(locals, unassigneds, E)
+    E = _extend(locals, unassigneds, E)
 
 
 def cse_microcode_arr_lit_i(cmd):

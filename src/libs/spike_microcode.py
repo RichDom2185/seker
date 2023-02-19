@@ -1,3 +1,5 @@
+import gc
+
 import hub
 from spike import Motor
 
@@ -43,3 +45,8 @@ for b in builtin_names:
                        if b in builtin_arities
                        else 1
                        }
+
+# Free up as much memory as possible by triggering
+# garbage collection when >5% of remaining free heap space is occupied
+gc.collect()
+gc.threshold(gc.mem_free() // 20 + gc.mem_alloc())

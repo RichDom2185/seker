@@ -74,7 +74,7 @@ export const writeLines = async (
  * @param text The raw output from the serial interface to be cleaned.
  * @returns The cleaned output, or undefined if the input is to be ignored.
  */
-const processRawOutput = (text: string) => {
+export const processRawOutput = (text: string) => {
   let cleaned = text.trim();
 
   // Ignore prompts

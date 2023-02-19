@@ -1,9 +1,11 @@
+from ujson import loads
+
 # evaluation of toplevel results
 # in the value undefined if the
 # stash is empty
 C = [{'tag': 'push_undefined_if_needed_i'},
      {'tag': 'blk',
-      'body': json.loads(json_string)}]
+      'body': loads(json_string)}]
 
 # machine loops until control is empty
 while True:

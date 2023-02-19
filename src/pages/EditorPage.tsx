@@ -29,13 +29,16 @@ import {
   languageToModeMap,
   PROGRAM_PLACEHOLDER_PYTHON,
   PROGRAM_PLACEHOLDER_SOURCE_THREE,
+  RAW_MODE_COMPILE,
+  RAW_MODE_ENTER,
+  RAW_MODE_EXIT,
   supportedLanguages,
 } from "../utils/constants";
 import {
   cleanProgram,
+  processRawOutput,
   readUntilPrompt,
   runProgram,
-  sleep,
   writeLines,
 } from "../utils/functions";
 
@@ -88,13 +91,22 @@ const EditorPage: React.FC = () => {
         await runProgram(port, cleanProgram(spikeMicrocode));
 
         const parsedProgram = parse_into_json(program);
-        const chunkSize = 1000; // 100
-        await runProgram(port, `json_string = ''\n`);
-        for (let i = 0; i < parsedProgram.length; i += chunkSize) {
-          const chunk = parsedProgram.slice(i, i + chunkSize);
-          await runProgram(port, `json_string += '${chunk}'\n`);
-          await sleep(100); // 10
-        }
+        // Newlines are automatically added by `writeLines`
+        await writeLines(
+          port,
+          RAW_MODE_ENTER,
+          "json_string = '''\\",
+          ...parsedProgram.match(/.{1,500}/g)!.map((s) => s + "\\"),
+          "'''",
+          RAW_MODE_COMPILE,
+          RAW_MODE_EXIT
+        );
+        await readUntilPrompt(port, 0, (text) => {
+          const cleaned = processRawOutput(text);
+          if (cleaned) console.log(cleaned);
+        });
+        console.log("Sending JSON program complete");
+
         await runProgram(port, cleanProgram(interpreterSuffix));
         break;
     }
