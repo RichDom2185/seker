@@ -20,7 +20,7 @@ builtin_microcode.update({
     'spike_getTouchStrength': lambda args: args[0].get()[0],
     'spike_getIsTouched': lambda args: args[0].get()[1] == 1,
     # Distance sensor
-    'spike_getCentimetres': lambda args: args[0].get()[1] or float('inf'),
+    'spike_getCentimetres': lambda args: args[0].get()[0] or float('inf'),
 
     # For motors, we unfortunately have to use a more declarative syntax, specifying the port manually
     'spike_motorA': lambda _: Motor('A'),
