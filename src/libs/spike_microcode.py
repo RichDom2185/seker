@@ -36,15 +36,11 @@ builtin_microcode.update({
 
 # We need to update some stuff; aka run the following lines again.
 # The following lines are taken from interpreter_prefix.py
-builtin_names = tuple(builtin_microcode.keys())
+for k, v in builtin_microcode.items():
+    global_frame[k] = {'tag': 'builtin',
+                       'sym': k,
+                       'arity': builtin_arities.get(k) or 1}
 
-for b in builtin_names:
-    global_frame[b] = {'tag': 'builtin',
-                       'sym': b,
-                       'arity': builtin_arities[b]
-                       if b in builtin_arities
-                       else 1
-                       }
 
 # Free up as much memory as possible by triggering
 # garbage collection when >5% of remaining free heap space is occupied

@@ -265,7 +265,6 @@ def _apply_builtin(builtin_symbol, arity, args):
 
 
 # the global frame has all builtins
-builtin_names = tuple(builtin_microcode.keys())
 
 # builtin arities other than 1
 builtin_arities = {
@@ -288,13 +287,10 @@ builtin_arities = {
 }
 
 global_frame = {}
-for b in builtin_names:
-    global_frame[b] = {'tag': 'builtin',
-                       'sym': b,
-                       'arity': builtin_arities[b]
-                       if b in builtin_arities
-                       else 1
-                       }
+for k, v in builtin_microcode.items():
+    global_frame[k] = {'tag': 'builtin',
+                       'sym': k,
+                       'arity': builtin_arities.get(k) or 1}
 global_frame['undefined'] = Undefined
 global_frame['math_E'] = math.e
 global_frame['math_LN10'] = math.log(10)
