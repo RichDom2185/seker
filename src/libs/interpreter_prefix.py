@@ -13,7 +13,10 @@
 
 import math
 import random
+import sys
 import time
+
+from ujson import loads
 
 ######################
 # useful helpers
@@ -360,7 +363,12 @@ def replace(x, v, e):
 
 def _value_producing(cmd):
     tag = cmd['tag']
-    return tag != 'let' and \
+    # Technically speaking, `pause_for_input` may be
+    # value-producing, however we do not know its value
+    # at the time this is called, hence there will be a
+    # separate call later on.
+    return tag != 'pause_for_input' and \
+        tag != 'let' and \
         tag != 'const' and \
         tag != 'fun' and \
         (tag != 'blk' or _value_producing(cmd['body'])) and \
@@ -528,6 +536,17 @@ def cse_microcode_blk(cmd):
     locals = _scan(cmd['body'])
     unassigneds = _scheme_map(lambda _: {'tag': 'unassigned'}, locals)
     C.extend([{'tag': 'env_i', 'env': E}, cmd['body']])
+    E = _extend(locals, unassigneds, E)
+
+
+def cse_microcode_pause_for_input(cmd):
+    global E
+    next_chunk = loads(sys.stdin.readline()[:-1])
+
+    # Similar to handling of `blk`
+    locals = _scan(next_chunk)
+    unassigneds = _scheme_map(lambda _: {'tag': 'unassigned'}, locals)
+    C.extend([{'tag': 'env_i', 'env': E}, next_chunk])
     E = _extend(locals, unassigneds, E)
 
 

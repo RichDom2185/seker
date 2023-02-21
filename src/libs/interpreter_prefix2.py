@@ -1,6 +1,3 @@
-# To be used for later evaluation, but called here so that it's only imported once
-from ujson import loads
-
 cse_microcode = {
     ##########################
     # expressions of Source §3
@@ -157,6 +154,7 @@ cse_microcode = {
     #############################
     # instructions of CSE machine
     #############################
+    'pause_for_input': cse_microcode_pause_for_input,
     'reset_i':
     lambda cmd: None
     if C.pop()['tag'] == 'mark'  # mark found: stop loop
