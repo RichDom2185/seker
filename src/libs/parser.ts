@@ -66,6 +66,11 @@ type Import = { tag: "import"; syms: List<string>; from: string };
 type This = { tag: "this" };
 type Spread = { tag: "spread"; sym: string };
 type Property = { tag: "prop"; sym: string };
+
+/**
+ * Special type of instruction to pause execution while
+ * the next chunk of the program is executed. */
+type PauseForFurtherInput = { tag: "pause_for_input" };
 type SyntaxTree =
   | Literal
   | Name
@@ -93,7 +98,8 @@ type SyntaxTree =
   | Import
   | This
   | Spread
-  | Property;
+  | Property
+  | PauseForFurtherInput;
 
 function list_to_array(xs: any): any {
   return is_null(xs) ? [] : [head(xs)].concat(list_to_array(tail(xs)));
@@ -271,4 +277,66 @@ export function parse_into_json(program: string) {
   const obj = objectify(parse(program));
   const json = JSON.stringify(obj);
   return json;
+}
+
+export function parseIntoJsonChunks(program: string) {
+  const full = objectify(parse(program));
+  return convertToJsonChunks(full);
+}
+
+// TODO: Support more tags
+function convertToJsonChunks(
+  obj: SyntaxTree,
+  maxLength: number = 1500
+): string[] {
+  if (JSON.stringify(obj).length <= maxLength) {
+    return [JSON.stringify(obj)];
+  }
+  switch (obj.tag) {
+    case "app":
+    case "arr_acc":
+    case "arr_assmt":
+    case "arr_lit":
+    case "assmt":
+    case "binop":
+    case "blk":
+    case "break":
+    case "cond_expr":
+    case "cond_stmt":
+    case "const":
+    case "cont":
+    case "for":
+    case "fun":
+    case "import":
+    case "lam":
+    case "let":
+    case "lit":
+    case "log":
+    case "nam":
+    case "prop":
+    // case "rest":
+    case "ret":
+      return [JSON.stringify(obj)];
+    case "seq":
+      const keptStatements: SyntaxTree[] = [];
+      let totalLength = 0;
+      for (const statement of obj.stmts) {
+        totalLength += JSON.stringify(statement).length;
+        if (totalLength > maxLength) break;
+        keptStatements.push(statement);
+      }
+      const remaining = obj.stmts.slice(keptStatements.length);
+      keptStatements.push({ tag: "pause_for_input" });
+
+      const newNode: SyntaxTree = { tag: "seq", stmts: keptStatements };
+      return [JSON.stringify(newNode)].concat(
+        convertToJsonChunks({ tag: "seq", stmts: remaining })
+      );
+    case "spread":
+    case "this":
+    case "unop":
+    case "while":
+    case "pause_for_input":
+      return [JSON.stringify(obj)];
+  }
 }
