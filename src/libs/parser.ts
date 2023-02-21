@@ -322,7 +322,7 @@ function convertToJsonChunks(
       let totalLength = 0;
       for (const statement of obj.stmts) {
         totalLength += JSON.stringify(statement).length;
-        if (totalLength > maxLength) break;
+        if (totalLength > maxLength && keptStatements.length > 1) break;
         keptStatements.push(statement);
       }
       const remaining = obj.stmts.slice(keptStatements.length);
