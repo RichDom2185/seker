@@ -267,8 +267,8 @@ function objectify(t: any): SyntaxTree {
   }
 }
 
-export function parse_into_json(program: any) {
-  let obj = objectify(parse(program));
-  let json = JSON.stringify(obj);
+export function parse_into_json(program: string) {
+  const obj = objectify(parse(program));
+  const json = JSON.stringify(obj);
   return json;
 }
