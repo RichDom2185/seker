@@ -541,7 +541,11 @@ def cse_microcode_blk(cmd):
 
 def cse_microcode_pause_for_input(cmd):
     global E
-    next_chunk = loads(sys.stdin.readline()[:-1])
+    next_chunk = sys.stdin.readline()[:-1]
+    # "\x04" is the sequence to trigger compilation in raw mode
+    while not next_chunk or next_chunk.strip() == "\x04":
+        next_chunk = sys.stdin.readline()[:-1]
+    next_chunk = loads(next_chunk)
 
     # Similar to handling of `blk`
     locals = _scan(next_chunk)
