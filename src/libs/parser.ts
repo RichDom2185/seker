@@ -28,11 +28,11 @@ type ArrayAssignment = {
   ind: SyntaxTree;
   expr: SyntaxTree;
 };
-type LiteralArray = { tag: "arr_lit"; elems: [SyntaxTree] };
+type LiteralArray = { tag: "arr_lit"; elems: SyntaxTree[] };
 type UnaryOperation = { tag: "unop"; sym: string; frst: SyntaxTree };
 type Decl = string | { tag: "rest"; sym: string };
 type Lambda = { tag: "lam"; prms: [Decl]; body: SyntaxTree };
-type Sequence = { tag: "seq"; stmts: [SyntaxTree] };
+type Sequence = { tag: "seq"; stmts: SyntaxTree[] };
 type ConditionalExpression = {
   tag: "cond_expr";
   pred: SyntaxTree;
