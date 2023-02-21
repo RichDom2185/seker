@@ -4,6 +4,7 @@ import {
   ButtonGroup,
   Card,
   CardBody,
+  Checkbox,
   Code,
   GridItem,
   Heading,
@@ -110,6 +111,8 @@ const EditorPage: React.FC = () => {
   const [jsonProgram, setJsonProgram] = useState("");
   const [languageMode, setLanguageMode] = useState(Languages.PYTHON);
   const [program, setProgram] = useState(languagePlaceholders[languageMode]);
+  // TODO: Temporary workaround to allow for larger programs
+  const [shouldUsePrelude, setShouldUsePrelude] = useState(false);
 
   // TODO: Memoize using useCallback
   const handleClickRun = async () => {
@@ -139,26 +142,28 @@ const EditorPage: React.FC = () => {
         await runProgram(port, cleanProgram(interpreterPrefix2));
         await runProgram(port, cleanProgram(spikeMicrocode));
 
-        // TODO: Remove code duplication
-        for (const prelude of preludes) {
-          console.log("Sending prelude chunk");
-          const parsedPrelude = parse_into_json(prelude);
-          // Newlines are automatically added by `writeLines`
-          await writeLines(
-            port,
-            RAW_MODE_ENTER,
-            "json_prelude = '''\\",
-            ...parsedPrelude.match(/.{1,1000}/g)!.map((s) => s + "\\"),
-            "'''",
-            RAW_MODE_COMPILE,
-            RAW_MODE_EXIT
-          );
-          await readUntilPrompt(port, 0, (text) => {
-            const cleaned = processRawOutput(text);
-            if (cleaned) console.log(cleaned);
-          });
-          console.log("Sending prelude chunk complete");
-          await runProgram(port, cleanProgram(interpreterEvaluatePrelude));
+        if (shouldUsePrelude) {
+          // TODO: Remove code duplication
+          for (const prelude of preludes) {
+            console.log("Sending prelude chunk");
+            const parsedPrelude = parse_into_json(prelude);
+            // Newlines are automatically added by `writeLines`
+            await writeLines(
+              port,
+              RAW_MODE_ENTER,
+              "json_prelude = '''\\",
+              ...parsedPrelude.match(/.{1,1000}/g)!.map((s) => s + "\\"),
+              "'''",
+              RAW_MODE_COMPILE,
+              RAW_MODE_EXIT
+            );
+            await readUntilPrompt(port, 0, (text) => {
+              const cleaned = processRawOutput(text);
+              if (cleaned) console.log(cleaned);
+            });
+            console.log("Sending prelude chunk complete");
+            await runProgram(port, cleanProgram(interpreterEvaluatePrelude));
+          }
         }
 
         console.log("Sending JSON program");
@@ -258,6 +263,14 @@ const EditorPage: React.FC = () => {
                   </option>
                 ))}
               </Select>
+              {languageMode === Languages.SOURCE_THREE && (
+                <Checkbox
+                  isChecked={shouldUsePrelude}
+                  onChange={() => setShouldUsePrelude((oldValue) => !oldValue)}
+                >
+                  Prelude
+                </Checkbox>
+              )}
               <Spacer />
               <ButtonGroup size="sm">
                 <Button onClick={handleClickRun}>Run on Device</Button>
