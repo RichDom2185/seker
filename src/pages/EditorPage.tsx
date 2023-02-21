@@ -21,7 +21,7 @@ import React, { useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import UserGuide from "../components/modals/UserGuide";
 import SampleProgramSidebar from "../components/sidebar/SampleProgramSidebar";
-import { parse_into_json } from "../libs/parser";
+import { parseIntoJsonChunks, parse_into_json } from "../libs/parser";
 import {
   BAUD_RATE_SPIKE_PRIME,
   END_OF_TRANSMISSION,
@@ -82,6 +82,7 @@ const languagePlaceholders = {
   [Languages.SOURCE_THREE]: PROGRAM_PLACEHOLDER_SOURCE_THREE,
 };
 
+// TODO: Replace this with improved chunking logic.
 const preludes = [
   sourceThreePrelude01,
   sourceThreePrelude02,
@@ -167,7 +168,10 @@ const EditorPage: React.FC = () => {
         }
 
         console.log("Sending JSON program");
-        const parsedProgram = parse_into_json(program);
+        // TODO: Refactor
+        const chunks = parseIntoJsonChunks(program);
+        const parsedProgram = chunks[0];
+
         // Newlines are automatically added by `writeLines`
         await writeLines(
           port,
@@ -184,7 +188,19 @@ const EditorPage: React.FC = () => {
         });
         console.log("Sending JSON program complete");
 
-        await runProgram(port, cleanProgram(interpreterSuffix));
+        // TODO: Refactor
+        await writeLines(
+          port,
+          RAW_MODE_ENTER,
+          cleanProgram(interpreterSuffix),
+          RAW_MODE_COMPILE,
+          ...chunks.slice(1).flatMap((chunk) => [chunk, RAW_MODE_COMPILE]),
+          RAW_MODE_EXIT
+        );
+        await readUntilPrompt(port, 0, (text) => {
+          const cleaned = processRawOutput(text);
+          if (cleaned) console.log(cleaned);
+        });
         break;
     }
 
