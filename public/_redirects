@@ -1,0 +1,3 @@
+# Redirects all traffic to root
+/seker / 200
+/seker/* /:splat 200
