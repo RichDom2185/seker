@@ -1519,9 +1519,9 @@ agent-base@6, agent-base@^6.0.2:
     debug "4"
 
 agentkeepalive@^4.2.1:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/agentkeepalive/-/agentkeepalive-4.3.0.tgz#bb999ff07412653c1803b3ced35e50729830a255"
-  integrity sha512-7Epl1Blf4Sy37j4v9f9FjICCh4+KAQOyXgHEwlyBiAQLbhKdq/i2QQU3amQalS/wPhdPzDXPL5DMR5bkn+YeWg==
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/agentkeepalive/-/agentkeepalive-4.4.0.tgz#6304d7f60e503ecd7d39b43942f7698d77c60497"
+  integrity sha512-MysLRwkhsJTZKs+fsZIsTgBlr3IjQroonVJWMSqC9k3LS6f6ZifePl9fCqOtvc8p0CeYDSZVFvytdkwhOGaSZA==
   dependencies:
     debug "^4.1.0"
     depd "^2.0.0"
@@ -2465,9 +2465,9 @@ js-base64@^3.7.5:
   integrity sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==
 
 js-slang@^1.0.3:
-  version "1.0.28"
-  resolved "https://registry.yarnpkg.com/js-slang/-/js-slang-1.0.28.tgz#c7d554e7fa379e7641e6a50824ddba72ed296ff2"
-  integrity sha512-Vu5IZmThS+gGz1uwufVN7n4Zzxy2UilezqSYoBAf+EIOmKXlOPWY82YNZFlWud69guXoQT6y4/QVQCPYnqMTvA==
+  version "1.0.29"
+  resolved "https://registry.yarnpkg.com/js-slang/-/js-slang-1.0.29.tgz#43178f459a8d6d1fb5fd534e589f2e23db91761a"
+  integrity sha512-SsSgSEJq2bDBTb2NZCvnBJ64mnND1EeTqT7M5Xrdtwjjl3i0CBGuPb9t7odP2uFnLZGN/l8uSqjl49tyOlqXTw==
   dependencies:
     "@babel/parser" "^7.19.4"
     "@joeychenofficial/alt-ergo-modified" "^2.4.0"
