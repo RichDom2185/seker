@@ -21,7 +21,7 @@ import React, { useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import UserGuide from "../components/modals/UserGuide";
 import SampleProgramSidebar from "../components/sidebar/SampleProgramSidebar";
-import { parseIntoJsonChunks, parse_into_json } from "../libs/parser";
+import { parse_into_json, parseIntoJsonChunks } from "../libs/parser";
 import {
   BAUD_RATE_SPIKE_PRIME,
   END_OF_TRANSMISSION,
@@ -49,28 +49,7 @@ import interpreterPrefix2 from "../libs/interpreter_prefix2.py?raw";
 import interpreterSuffix from "../libs/interpreter_suffix.py?raw";
 import spikeMicrocode from "../libs/spike_microcode.py?raw";
 
-import sourceThreePrelude01 from "../libs/source3/prelude/01.js?raw";
-import sourceThreePrelude02 from "../libs/source3/prelude/02.js?raw";
-import sourceThreePrelude03 from "../libs/source3/prelude/03.js?raw";
-import sourceThreePrelude04 from "../libs/source3/prelude/04.js?raw";
-import sourceThreePrelude05 from "../libs/source3/prelude/05.js?raw";
-import sourceThreePrelude06 from "../libs/source3/prelude/06.js?raw";
-import sourceThreePrelude07 from "../libs/source3/prelude/07.js?raw";
-import sourceThreePrelude08 from "../libs/source3/prelude/08.js?raw";
-import sourceThreePrelude09 from "../libs/source3/prelude/09.js?raw";
-import sourceThreePrelude10 from "../libs/source3/prelude/10.js?raw";
-import sourceThreePrelude11 from "../libs/source3/prelude/11.js?raw";
-import sourceThreePrelude12 from "../libs/source3/prelude/12.js?raw";
-import sourceThreePrelude13 from "../libs/source3/prelude/13.js?raw";
-import sourceThreePrelude14 from "../libs/source3/prelude/14.js?raw";
-import sourceThreePrelude15 from "../libs/source3/prelude/15.js?raw";
-import sourceThreePrelude16 from "../libs/source3/prelude/16.js?raw";
-import sourceThreePrelude17 from "../libs/source3/prelude/17.js?raw";
-import sourceThreePrelude18 from "../libs/source3/prelude/18.js?raw";
-import sourceThreePrelude19 from "../libs/source3/prelude/19.js?raw";
-import sourceThreePrelude20 from "../libs/source3/prelude/20.js?raw";
-import sourceThreePrelude21 from "../libs/source3/prelude/21.js?raw";
-import sourceThreePrelude22 from "../libs/source3/prelude/22.js?raw";
+import { sourceThreePrelude } from "../libs/source3/prelude";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -83,30 +62,7 @@ const languagePlaceholders = {
 };
 
 // TODO: Replace this with improved chunking logic.
-const preludes = [
-  sourceThreePrelude01,
-  sourceThreePrelude02,
-  sourceThreePrelude03,
-  sourceThreePrelude04,
-  sourceThreePrelude05,
-  sourceThreePrelude06,
-  sourceThreePrelude07,
-  sourceThreePrelude08,
-  sourceThreePrelude09,
-  sourceThreePrelude10,
-  sourceThreePrelude11,
-  sourceThreePrelude12,
-  sourceThreePrelude13,
-  sourceThreePrelude14,
-  sourceThreePrelude15,
-  sourceThreePrelude16,
-  sourceThreePrelude17,
-  sourceThreePrelude18,
-  sourceThreePrelude19,
-  sourceThreePrelude20,
-  sourceThreePrelude21,
-  sourceThreePrelude22,
-];
+const preludes = sourceThreePrelude;
 
 const EditorPage: React.FC = () => {
   const [jsonProgram, setJsonProgram] = useState("");
