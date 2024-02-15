@@ -12,10 +12,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Install dependencies (apt)
+        run: |
+          sudo apt-get install -y --no-install-recommends \
+          libxi-dev libgl1-mesa-dev
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: yarn
       - name: Install Dependencies
         run: yarn install
