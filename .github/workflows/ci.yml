@@ -1,0 +1,26 @@
+name: Run CI
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+      - name: Install Dependencies
+        run: yarn install
+      - name: Check compile
+        run: yarn tsc
+      - name: Check build
+        run: yarn build
