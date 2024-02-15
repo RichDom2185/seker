@@ -16,7 +16,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { decompressFromEncodedURIComponent } from "lz-string";
-import { parse } from "query-string";
+import qs from "query-string";
 import React, { useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import UserGuide from "../components/modals/UserGuide";
@@ -175,7 +175,7 @@ const EditorPage: React.FC = () => {
   };
 
   useEffect(() => {
-    const decodedFragment = parse(location.hash);
+    const decodedFragment = qs.parse(location.hash);
     const decodedProgram = decompressFromEncodedURIComponent(
       decodedFragment.prgrm as string
     );
