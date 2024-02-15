@@ -12,13 +12,8 @@ import React from "react";
 import { Languages } from "../../utils/constants";
 import SampleProgramListItem from "./SampleProgramListItem";
 
-import sampleProgramBlinkLoop from "../../programs/python/blink_loop.py?raw";
-import sampleProgramImagePixel from "../../programs/python/image_pixel.py?raw";
-
-import sampleProgramMotor from "../../programs/source3/motor.js?raw";
-import sampleProgramMusic from "../../programs/source3/music.js?raw";
-import sampleProgramSensor from "../../programs/source3/sensor.js?raw";
-import sampleProgramZigzag from "../../programs/source3/zigzag.js?raw";
+import { samplePythonPrograms } from "../../programs/python";
+import { sampleSourceThreePrograms } from "../../programs/source3";
 
 type Props = {
   languageMode: Languages;
@@ -28,14 +23,9 @@ type Props = {
 const getSampleProgramsFrom = (language: Languages): ReadonlyArray<string> => {
   switch (language) {
     case Languages.PYTHON:
-      return [sampleProgramImagePixel, sampleProgramBlinkLoop];
+      return samplePythonPrograms;
     case Languages.SOURCE_THREE:
-      return [
-        sampleProgramZigzag,
-        sampleProgramMusic,
-        sampleProgramSensor,
-        sampleProgramMotor,
-      ];
+      return sampleSourceThreePrograms;
   }
 };
 
