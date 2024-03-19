@@ -2406,9 +2406,9 @@ js-base64@^3.7.5:
   integrity sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==
 
 js-slang@^1.0.3:
-  version "1.0.46"
-  resolved "https://registry.yarnpkg.com/js-slang/-/js-slang-1.0.46.tgz#61b27f7a99ebe02c2f462e353d57a1593f2644ff"
-  integrity sha512-ogAJXNKGxbXk4y1FL/U9Jqt+SHKj9Ekn+xXffu+rs+FA07OcW0b6VElAL2z0sJr5tV88RWiC/1xJULr7aFnAiA==
+  version "1.0.48"
+  resolved "https://registry.yarnpkg.com/js-slang/-/js-slang-1.0.48.tgz#e08a52a8472eeb18c573e7a9700865746b7bcdbe"
+  integrity sha512-XaGdlbzZsMbA46f+5/IUXi2vUx3hlDA8ctneWSXOY7BMPduiUUrDJzL2y27enGZbE4l1V8E1prNehO7zfS6Xuw==
   dependencies:
     "@babel/parser" "^7.19.4"
     "@joeychenofficial/alt-ergo-modified" "^2.4.0"
@@ -2646,9 +2646,9 @@ ms@^2.0.0:
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
 nan@^2.17.0:
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.18.0.tgz#26a6faae7ffbeb293a39660e88a76b82e30b7554"
-  integrity sha512-W7tfG7vMOGtD30sHoZSSc/JVYiyDPEyQVso/Zz+/uQd0B0L46gtC+pHha5FFMRpil6fm/AoEcRWyOVi4+E/f8w==
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.19.0.tgz#bb58122ad55a6c5bc973303908d5b16cfdd5a8c0"
+  integrity sha512-nO1xXxfh/RWNxfd/XPfbIfFk5vgLsAxUR9y5O0cHMJu/AW9U95JLXqthYHjEp+8gQ5p96K9jUp8nbVOxCdRbtw==
 
 nanoid@^3.3.7:
   version "3.3.7"
