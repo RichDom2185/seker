@@ -49,7 +49,8 @@ import interpreterPrefix2 from "../libs/interpreter_prefix2.py?raw";
 import interpreterSuffix from "../libs/interpreter_suffix.py?raw";
 import spikeMicrocode from "../libs/spike_microcode.py?raw";
 
-import { sourceThreePrelude } from "../libs/source3/prelude";
+const getSourceThreePrelude = async () =>
+  (await import("../libs/source3/prelude")).sourceThreePrelude;
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -61,15 +62,23 @@ const languagePlaceholders = {
   [Languages.SOURCE_THREE]: PROGRAM_PLACEHOLDER_SOURCE_THREE,
 };
 
-// TODO: Replace this with improved chunking logic.
-const preludes = sourceThreePrelude;
-
 const EditorPage: React.FC = () => {
   const [jsonProgram, setJsonProgram] = useState("");
   const [languageMode, setLanguageMode] = useState(Languages.PYTHON);
   const [program, setProgram] = useState(languagePlaceholders[languageMode]);
   // TODO: Temporary workaround to allow for larger programs
   const [shouldUsePrelude, setShouldUsePrelude] = useState(false);
+
+  // TODO: Replace this with improved chunking logic.
+  const [preludes, setPreludes] =
+    useState<Awaited<ReturnType<typeof getSourceThreePrelude>>>();
+
+  useEffect(() => {
+    if (preludes) return;
+    if (shouldUsePrelude) {
+      getSourceThreePrelude().then(setPreludes);
+    }
+  }, [shouldUsePrelude]);
 
   // TODO: Memoize using useCallback
   const handleClickRun = async () => {
@@ -100,6 +109,9 @@ const EditorPage: React.FC = () => {
         await runProgram(port, cleanProgram(spikeMicrocode));
 
         if (shouldUsePrelude) {
+          if (!preludes) {
+            throw new Error("Preludes not loaded");
+          }
           // TODO: Remove code duplication
           for (const prelude of preludes) {
             console.log("Sending prelude chunk");
