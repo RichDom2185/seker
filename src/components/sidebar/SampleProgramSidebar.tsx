@@ -8,32 +8,47 @@ import {
   StackDivider,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Languages } from "../../utils/constants";
 import SampleProgramListItem from "./SampleProgramListItem";
 
-import { samplePythonPrograms } from "../../programs/python";
-import { sampleSourceThreePrograms } from "../../programs/source3";
+const getSamplePythonPrograms = async () =>
+  (await import("../../programs/python")).samplePythonPrograms;
+const getSampleSourceThreePrograms = async () =>
+  (await import("../../programs/source3")).sampleSourceThreePrograms;
+
+let samplePythonPrograms: ReadonlyArray<string>;
+let sampleSourceThreePrograms: ReadonlyArray<string>;
+const getSampleProgramsFrom = async (language: Languages) => {
+  switch (language) {
+    case Languages.PYTHON:
+      if (samplePythonPrograms === undefined) {
+        samplePythonPrograms = await getSamplePythonPrograms();
+      }
+      return samplePythonPrograms;
+    case Languages.SOURCE_THREE:
+      if (sampleSourceThreePrograms === undefined) {
+        sampleSourceThreePrograms = await getSampleSourceThreePrograms();
+      }
+      return sampleSourceThreePrograms;
+  }
+};
 
 type Props = {
   languageMode: Languages;
   setProgramState: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const getSampleProgramsFrom = (language: Languages): ReadonlyArray<string> => {
-  switch (language) {
-    case Languages.PYTHON:
-      return samplePythonPrograms;
-    case Languages.SOURCE_THREE:
-      return sampleSourceThreePrograms;
-  }
-};
-
 const SampleProgramSidebar: React.FC<Props> = ({
   languageMode,
   setProgramState,
 }) => {
-  const programs = getSampleProgramsFrom(languageMode);
+  const [programs, setPrograms] = useState<ReadonlyArray<string>>();
+  useEffect(() => {
+    setPrograms(undefined);
+    getSampleProgramsFrom(languageMode).then(setPrograms);
+  }, [languageMode]);
+
   return (
     <Card>
       <CardHeader>
@@ -44,7 +59,11 @@ const SampleProgramSidebar: React.FC<Props> = ({
       </CardHeader>
       <CardBody paddingTop={0}>
         <Stack divider={<StackDivider />}>
-          {programs.length == 0 ? (
+          {programs === undefined ? (
+            <Text fontStyle="italic" color="gray">
+              Loading sample programs&hellip;
+            </Text>
+          ) : programs.length == 0 ? (
             <Text fontStyle="italic" color="gray">
               No sample programs found.
             </Text>
