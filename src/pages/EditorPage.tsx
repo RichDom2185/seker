@@ -43,12 +43,8 @@ import {
   writeLines,
 } from "../utils/functions";
 
-import interpreterEvaluatePrelude from "../libs/interpreter_evaluate_prelude.py?raw";
-import interpreterPrefix from "../libs/interpreter_prefix.py?raw";
-import interpreterPrefix2 from "../libs/interpreter_prefix2.py?raw";
-import interpreterSuffix from "../libs/interpreter_suffix.py?raw";
-import spikeMicrocode from "../libs/spike_microcode.py?raw";
-
+const getInterpreterLib = async () =>
+  (await import("../libs/interpreter")).default;
 const getSourceThreePrelude = async () =>
   (await import("../libs/source3/prelude")).sourceThreePrelude;
 
@@ -72,6 +68,8 @@ const EditorPage: React.FC = () => {
   // TODO: Replace this with improved chunking logic.
   const [preludes, setPreludes] =
     useState<Awaited<ReturnType<typeof getSourceThreePrelude>>>();
+  const [interpreter, setInterpreter] =
+    useState<Awaited<ReturnType<typeof getInterpreterLib>>>();
 
   useEffect(() => {
     if (preludes) return;
@@ -79,6 +77,13 @@ const EditorPage: React.FC = () => {
       getSourceThreePrelude().then(setPreludes);
     }
   }, [shouldUsePrelude]);
+
+  useEffect(() => {
+    if (interpreter) return;
+    if (languageMode === Languages.SOURCE_THREE) {
+      getInterpreterLib().then(setInterpreter);
+    }
+  }, [languageMode]);
 
   // TODO: Memoize using useCallback
   const handleClickRun = async () => {
@@ -103,10 +108,13 @@ const EditorPage: React.FC = () => {
         await runProgram(port, cleanProgram(program));
         break;
       case Languages.SOURCE_THREE:
+        if (!interpreter) {
+          throw new Error("Interpreter not loaded");
+        }
         // We split the program into chunks to maximise the amount of program space we can have.
-        await runProgram(port, cleanProgram(interpreterPrefix));
-        await runProgram(port, cleanProgram(interpreterPrefix2));
-        await runProgram(port, cleanProgram(spikeMicrocode));
+        await runProgram(port, cleanProgram(interpreter.prefix));
+        await runProgram(port, cleanProgram(interpreter.prefix2));
+        await runProgram(port, cleanProgram(interpreter.spikeMicrocode));
 
         if (shouldUsePrelude) {
           if (!preludes) {
@@ -131,7 +139,7 @@ const EditorPage: React.FC = () => {
               if (cleaned) console.log(cleaned);
             });
             console.log("Sending prelude chunk complete");
-            await runProgram(port, cleanProgram(interpreterEvaluatePrelude));
+            await runProgram(port, cleanProgram(interpreter.evaluatePrelude));
           }
         }
 
@@ -160,7 +168,7 @@ const EditorPage: React.FC = () => {
         await writeLines(
           port,
           RAW_MODE_ENTER,
-          cleanProgram(interpreterSuffix),
+          cleanProgram(interpreter.suffix),
           RAW_MODE_COMPILE,
           ...chunks.slice(1).flatMap((chunk) => [chunk, RAW_MODE_COMPILE]),
           RAW_MODE_EXIT
