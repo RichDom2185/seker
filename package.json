@@ -13,10 +13,10 @@
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "ace-builds": "^1.32.8",
-    "framer-motion": "^11.0.5",
-    "js-slang": "^1.0.52",
+    "@emotion/styled": "^11.11.5",
+    "ace-builds": "^1.33.0",
+    "framer-motion": "^11.0.28",
+    "js-slang": "^1.0.68",
     "lz-string": "^1.5.0",
     "query-string": "^9.0.0",
     "react": "^18.2.0",
@@ -25,11 +25,11 @@
     "sicp": "^1.1.4"
   },
   "devDependencies": {
-    "@types/react": "^18.0.24",
-    "@types/react-dom": "^18.0.8",
+    "@types/react": "^18.2.78",
+    "@types/react-dom": "^18.2.25",
     "@vitejs/plugin-react": "^4.0.0",
-    "typescript": "^5.4.3",
-    "vite": "^5.2.6"
+    "typescript": "^5.4.5",
+    "vite": "^5.2.8"
   },
   "resolutions": {
     "**/gl": "^6.0.0"
