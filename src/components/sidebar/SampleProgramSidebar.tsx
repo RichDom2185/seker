@@ -10,29 +10,8 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Languages } from "../../utils/constants";
+import { sampleProgramLoader } from "../../utils/programs";
 import SampleProgramListItem from "./SampleProgramListItem";
-
-const getSamplePythonPrograms = async () =>
-  (await import("../../programs/python")).samplePythonPrograms;
-const getSampleSourceThreePrograms = async () =>
-  (await import("../../programs/source3")).sampleSourceThreePrograms;
-
-let samplePythonPrograms: ReadonlyArray<string>;
-let sampleSourceThreePrograms: ReadonlyArray<string>;
-const getSampleProgramsFrom = async (language: Languages) => {
-  switch (language) {
-    case Languages.PYTHON:
-      if (samplePythonPrograms === undefined) {
-        samplePythonPrograms = await getSamplePythonPrograms();
-      }
-      return samplePythonPrograms;
-    case Languages.SOURCE_THREE_INTERPRETER:
-      if (sampleSourceThreePrograms === undefined) {
-        sampleSourceThreePrograms = await getSampleSourceThreePrograms();
-      }
-      return sampleSourceThreePrograms;
-  }
-};
 
 type Props = {
   languageMode: Languages;
@@ -46,7 +25,7 @@ const SampleProgramSidebar: React.FC<Props> = ({
   const [programs, setPrograms] = useState<ReadonlyArray<string>>();
   useEffect(() => {
     setPrograms(undefined);
-    getSampleProgramsFrom(languageMode).then(setPrograms);
+    sampleProgramLoader(languageMode).then(setPrograms);
   }, [languageMode]);
 
   return (
