@@ -17,17 +17,18 @@ import {
 } from "@chakra-ui/react";
 import { decompressFromEncodedURIComponent } from "lz-string";
 import qs from "query-string";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Editor from "../components/editor/Editor";
 import UserGuide from "../components/modals/UserGuide";
 import SampleProgramSidebar from "../components/sidebar/SampleProgramSidebar";
 import { parse_into_json, parseIntoJsonChunks } from "../libs/parser";
+import { useTypedDispatch, useTypedSelector } from "../redux/hooks";
+import { WorkspaceActions } from "../redux/reducers/workspace";
 import {
   BAUD_RATE_SPIKE_PRIME,
   END_OF_TRANSMISSION,
   KEYBOARD_INTERRUPT,
   Languages,
-  languageToModeMap,
   PROGRAM_PLACEHOLDER_PYTHON,
   PROGRAM_PLACEHOLDER_SOURCE_THREE,
   RAW_MODE_COMPILE,
@@ -55,7 +56,17 @@ const languagePlaceholders = {
 
 const EditorPage: React.FC = () => {
   const [jsonProgram, setJsonProgram] = useState("");
-  const [languageMode, setLanguageMode] = useState(Languages.PYTHON);
+
+  const dispatch = useTypedDispatch();
+  const languageMode = useTypedSelector(
+    (state) => state.workspace.currentLanguage
+  );
+  const setLanguageMode = useCallback(
+    (language: Languages) =>
+      dispatch(WorkspaceActions.setCurrentLanguage(language)),
+    [dispatch]
+  );
+
   const [program, setProgram] = useState(languagePlaceholders[languageMode]);
   // TODO: Temporary workaround to allow for larger programs
   const [shouldUsePrelude, setShouldUsePrelude] = useState(false);
@@ -270,9 +281,6 @@ const EditorPage: React.FC = () => {
             <Box borderRadius={6} overflow="clip">
               <Editor
                 name="editor"
-                mode={languageToModeMap[languageMode]}
-                theme="source"
-                width="100%"
                 onChange={setProgram}
                 value={program}
                 wrapEnabled
