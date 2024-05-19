@@ -274,10 +274,7 @@ const EditorPage: React.FC = () => {
           </Stack>
         </GridItem>
         <GridItem>
-          <SampleProgramSidebar
-            languageMode={languageMode}
-            setProgramState={setProgram}
-          />
+          <SampleProgramSidebar setProgramState={setProgram} />
         </GridItem>
       </SimpleGrid>
     </Box>

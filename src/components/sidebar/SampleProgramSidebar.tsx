@@ -9,20 +9,20 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Languages } from "../../utils/constants";
+import { useTypedSelector } from "../../redux/hooks";
 import { sampleProgramLoader } from "../../utils/programs";
 import SampleProgramListItem from "./SampleProgramListItem";
 
 type Props = {
-  languageMode: Languages;
   setProgramState: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const SampleProgramSidebar: React.FC<Props> = ({
-  languageMode,
-  setProgramState,
-}) => {
+const SampleProgramSidebar: React.FC<Props> = ({ setProgramState }) => {
   const [programs, setPrograms] = useState<ReadonlyArray<string>>();
+  const languageMode = useTypedSelector(
+    (state) => state.workspace.currentLanguage
+  );
+
   useEffect(() => {
     setPrograms(undefined);
     sampleProgramLoader(languageMode).then(setPrograms);
