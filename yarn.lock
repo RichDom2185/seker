@@ -1028,6 +1028,11 @@
   resolved "https://registry.yarnpkg.com/@chakra-ui/visually-hidden/-/visually-hidden-2.2.0.tgz#9b0ecef8f01263ab808ba3bda7b36a0d91b4d5c1"
   integrity sha512-KmKDg01SrQ7VbTD3+cPWf/UfpF5MSwm3v7MWi0n5t8HnnadT13MF0MJCDSXbBWnzLv1ZKJ6zlyAOeARWX+DpjQ==
 
+"@commander-js/extra-typings@^12.0.1":
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/@commander-js/extra-typings/-/extra-typings-12.1.0.tgz#5441bae756d326d34f1b9dceb0d78dbf5bc05d81"
+  integrity sha512-wf/lwQvWAA0goIghcb91dQYpkLBcyhOhQNqG/VgWhnKzgt+UOMvra7EX/2fv70arm5RW+PUHoQHHDa6/p77Eqg==
+
 "@emotion/babel-plugin@^11.11.0":
   version "11.11.0"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.11.0.tgz#c2d872b6a7767a9d176d007f5b31f7d504bb5d6c"
@@ -1469,7 +1474,7 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.52.tgz#7f1f57ad5b741f3d5b210d3b1f145640d89bf8fe"
   integrity sha512-BZWrtCU0bMVAIliIV+HJO1f1PR41M7NKjfxrFJwwhKI1KwhwOxYw1SXg9ao+CIMt774nFuGiG6eU+udtbEI9oQ==
 
-"@types/estree@1.0.5":
+"@types/estree@1.0.5", "@types/estree@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-1.0.5.tgz#a6ce3e556e00fd9895dd872dd172ad0d4bd687f4"
   integrity sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==
@@ -1801,6 +1806,11 @@ color2k@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/color2k/-/color2k-2.0.2.tgz#ac2b4aea11c822a6bcb70c768b5a289f4fffcebb"
   integrity sha512-kJhwH5nAwb34tmyuqq/lgjEKzlFXn1U99NlnB6Ws4qVaERcRUYeYP1cBw6BJ4vxaWStAUEef4WMr7WjOCnBt8w==
+
+commander@^12.0.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-12.1.0.tgz#01423b36f501259fdaac4d0e4d60c96c991585d3"
+  integrity sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==
 
 compute-scroll-into-view@3.0.3:
   version "3.0.3"
@@ -2374,24 +2384,25 @@ js-base64@^3.7.5:
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.7.tgz#e51b84bf78fbf5702b9541e2cb7bfcb893b43e79"
   integrity sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==
 
-js-slang@^1.0.68:
-  version "1.0.68"
-  resolved "https://registry.yarnpkg.com/js-slang/-/js-slang-1.0.68.tgz#8540cc556a3afe8ced21740e917dd387d022986c"
-  integrity sha512-oOcj+m8tiPf0XVQWJtWRydgL58CabqIaaSf0JlT55Ute+CLuGKP+otlVnkFMP0F9KGUjMovicopcDPO238ZfQg==
+js-slang@^1.0.74:
+  version "1.0.74"
+  resolved "https://registry.yarnpkg.com/js-slang/-/js-slang-1.0.74.tgz#1970459a60740a3535cd77846d13221bdd315669"
+  integrity sha512-PB6K0MRBHTOJWuAXa9cVZhNkYPyu0APQOZEtMN+KE1L0sLf0ksGfSwAEqapgvd9IB744KlpQ68njqwY2YPsf/A==
   dependencies:
     "@babel/parser" "^7.19.4"
+    "@commander-js/extra-typings" "^12.0.1"
     "@joeychenofficial/alt-ergo-modified" "^2.4.0"
     "@ts-morph/bootstrap" "^0.18.0"
-    "@types/estree" "0.0.52"
+    "@types/estree" "^1.0.5"
     acorn "^8.8.2"
     acorn-class-fields "^1.0.0"
     acorn-loose "^8.0.0"
     acorn-walk "^8.0.0"
     astring "^1.4.3"
+    commander "^12.0.0"
     gpu.js "^2.16.0"
     js-base64 "^3.7.5"
     lodash "^4.17.21"
-    node-getopt "^0.3.2"
     source-map "0.7.3"
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
@@ -2639,11 +2650,6 @@ node-abi@^3.26.0, node-abi@^3.3.0:
   integrity sha512-fZjdhDOeRcaS+rcpve7XuwHBmktS1nS1gzgghwKUQQ8nTy2FdSDr6ZT8k6YhvlJeHmmQMYiT/IH9hfco5zeW2Q==
   dependencies:
     semver "^7.3.5"
-
-node-getopt@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/node-getopt/-/node-getopt-0.3.2.tgz#57507cd22f6f69650aa99252304a842f1224e44c"
-  integrity sha512-yqkmYrMbK1wPrfz7mgeYvA4tBperLg9FQ4S3Sau3nSAkpOA0x0zC8nQ1siBwozy1f4SE8vq2n1WKv99r+PCa1Q==
 
 node-gyp@^9.2.0:
   version "9.4.1"
