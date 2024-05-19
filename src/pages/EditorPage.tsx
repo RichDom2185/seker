@@ -55,7 +55,7 @@ import "js-slang/dist/editors/ace/theme/source";
 
 const languagePlaceholders = {
   [Languages.PYTHON]: PROGRAM_PLACEHOLDER_PYTHON,
-  [Languages.SOURCE_THREE]: PROGRAM_PLACEHOLDER_SOURCE_THREE,
+  [Languages.SOURCE_THREE_INTERPRETER]: PROGRAM_PLACEHOLDER_SOURCE_THREE,
 };
 
 const EditorPage: React.FC = () => {
@@ -80,14 +80,14 @@ const EditorPage: React.FC = () => {
 
   useEffect(() => {
     if (interpreter) return;
-    if (languageMode === Languages.SOURCE_THREE) {
+    if (languageMode === Languages.SOURCE_THREE_INTERPRETER) {
       getInterpreterLib().then(setInterpreter);
     }
   }, [languageMode]);
 
   // TODO: Memoize using useCallback
   const handleClickRun = async () => {
-    if (languageMode === Languages.SOURCE_THREE) {
+    if (languageMode === Languages.SOURCE_THREE_INTERPRETER) {
       try {
         parse_into_json(program);
         setJsonProgram("");
@@ -107,7 +107,7 @@ const EditorPage: React.FC = () => {
       case Languages.PYTHON:
         await runProgram(port, cleanProgram(program));
         break;
-      case Languages.SOURCE_THREE:
+      case Languages.SOURCE_THREE_INTERPRETER:
         if (!interpreter) {
           throw new Error("Interpreter not loaded");
         }
@@ -200,7 +200,7 @@ const EditorPage: React.FC = () => {
       decodedFragment.prgrm as string
     );
     if (decodedProgram) {
-      setLanguageMode(Languages.SOURCE_THREE);
+      setLanguageMode(Languages.SOURCE_THREE_INTERPRETER);
       setProgram(decodedProgram);
     }
   }, []);
@@ -221,9 +221,10 @@ const EditorPage: React.FC = () => {
           <Stack>
             <Heading>SEKER: Source–SPIKE Prime Runner</Heading>
             <UserGuide />
-            {languageMode === Languages.SOURCE_THREE && (
+            {languageMode === Languages.SOURCE_THREE_INTERPRETER && (
               <Text fontStyle="italic" color="orange.500">
-                Note: Support for {Languages.SOURCE_THREE} Programs is in beta!
+                Note: Support for {Languages.SOURCE_THREE_INTERPRETER} Programs
+                is in beta!
               </Text>
             )}
             {jsonProgram && (
@@ -255,7 +256,7 @@ const EditorPage: React.FC = () => {
                   </option>
                 ))}
               </Select>
-              {languageMode === Languages.SOURCE_THREE && (
+              {languageMode === Languages.SOURCE_THREE_INTERPRETER && (
                 <Checkbox
                   isChecked={shouldUsePrelude}
                   onChange={() => setShouldUsePrelude((oldValue) => !oldValue)}
@@ -266,7 +267,7 @@ const EditorPage: React.FC = () => {
               <Spacer />
               <ButtonGroup size="sm">
                 <Button onClick={handleClickRun}>Run on Device</Button>
-                {languageMode === Languages.SOURCE_THREE && (
+                {languageMode === Languages.SOURCE_THREE_INTERPRETER && (
                   <Button onClick={handleParseJson}>Parse into JSON</Button>
                 )}
               </ButtonGroup>

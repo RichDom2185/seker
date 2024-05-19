@@ -38,8 +38,8 @@ const UserGuide: React.FC = () => {
                 </em>
               </ListItem>
               <ListItem>
-                Select the appropriate language mode: {Languages.SOURCE_THREE}{" "}
-                or {Languages.PYTHON}
+                Select the appropriate language mode:{" "}
+                {Languages.SOURCE_THREE_INTERPRETER} or {Languages.PYTHON}
               </ListItem>
               <ListItem>
                 After finishing your code, click the "Run on Device" button.

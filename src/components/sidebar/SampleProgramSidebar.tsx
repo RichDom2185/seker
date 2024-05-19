@@ -26,7 +26,7 @@ const getSampleProgramsFrom = async (language: Languages) => {
         samplePythonPrograms = await getSamplePythonPrograms();
       }
       return samplePythonPrograms;
-    case Languages.SOURCE_THREE:
+    case Languages.SOURCE_THREE_INTERPRETER:
       if (sampleSourceThreePrograms === undefined) {
         sampleSourceThreePrograms = await getSampleSourceThreePrograms();
       }

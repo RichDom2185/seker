@@ -19,18 +19,18 @@ export const RAW_MODE_COMPILE = "\x04";
 export const RAW_MODE_EXIT = "\x02";
 
 export enum Languages {
-  SOURCE_THREE = "Source §3",
+  SOURCE_THREE_INTERPRETER = "Source §3 (Legacy)",
   PYTHON = "Python",
 }
 
 export const supportedLanguages = [
   Languages.PYTHON,
-  Languages.SOURCE_THREE,
+  Languages.SOURCE_THREE_INTERPRETER,
 ] as const satisfies readonly Languages[];
 
 export const languageToModeMap = Object.freeze({
   [Languages.PYTHON]: "python",
-  [Languages.SOURCE_THREE]: "javascript",
+  [Languages.SOURCE_THREE_INTERPRETER]: "javascript",
 }) satisfies {
   [l in Languages]: React.ComponentProps<typeof AceEditor>["mode"];
 };
