@@ -5,6 +5,12 @@ import { store } from "./redux/store";
 
 import "./App.css";
 
+declare global {
+  interface Navigator {
+    readonly serial: Serial;
+  }
+}
+
 const App: React.FC = () => {
   return (
     <Provider store={store}>

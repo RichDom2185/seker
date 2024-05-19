@@ -21,9 +21,3 @@ declare interface Serial extends EventTarget {
   getPorts(): Promise<SerialPort[]>;
   requestPort(options?: any): Promise<SerialPort>;
 }
-
-declare global {
-  interface Navigator {
-    readonly serial: Serial;
-  }
-}
