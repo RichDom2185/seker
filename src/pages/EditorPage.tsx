@@ -2,10 +2,7 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Card,
-  CardBody,
   Checkbox,
-  Code,
   GridItem,
   Heading,
   HStack,
@@ -18,6 +15,7 @@ import { decompressFromEncodedURIComponent } from "lz-string";
 import qs from "query-string";
 import React, { useCallback, useEffect, useState } from "react";
 import Editor from "../components/editor/Editor";
+import JsonDisplay from "../components/editor/JsonDisplay";
 import LanguageSelector from "../components/editor/LanguageSelector";
 import UserGuide from "../components/modals/UserGuide";
 import SampleProgramSidebar from "../components/sidebar/SampleProgramSidebar";
@@ -232,18 +230,7 @@ const EditorPage: React.FC = () => {
                 is in beta!
               </Text>
             )}
-            {jsonProgram && (
-              <Card>
-                <CardBody>
-                  <Text>JSON Code:</Text>
-                  <Box overflowX="scroll">
-                    <Code display="block" whiteSpace="pre" width="max-content">
-                      {jsonProgram}
-                    </Code>
-                  </Box>
-                </CardBody>
-              </Card>
-            )}
+            {jsonProgram && <JsonDisplay jsonProgram={jsonProgram} />}
             <HStack>
               <Text fontWeight="bold">Select language mode:</Text>
               <LanguageSelector />
