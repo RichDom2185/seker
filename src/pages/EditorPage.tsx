@@ -18,7 +18,7 @@ import {
 import { decompressFromEncodedURIComponent } from "lz-string";
 import qs from "query-string";
 import React, { useEffect, useState } from "react";
-import AceEditor from "react-ace";
+import Editor from "../components/editor/Editor";
 import UserGuide from "../components/modals/UserGuide";
 import SampleProgramSidebar from "../components/sidebar/SampleProgramSidebar";
 import { parse_into_json, parseIntoJsonChunks } from "../libs/parser";
@@ -47,11 +47,6 @@ const getInterpreterLib = async () =>
   (await import("../libs/interpreter")).default;
 const getSourceThreePrelude = async () =>
   (await import("../libs/source3/prelude")).sourceThreePrelude;
-
-import "ace-builds/src-noconflict/ext-language_tools";
-import "ace-builds/src-noconflict/mode-javascript";
-import "ace-builds/src-noconflict/mode-python";
-import "js-slang/dist/editors/ace/theme/source";
 
 const languagePlaceholders = {
   [Languages.PYTHON]: PROGRAM_PLACEHOLDER_PYTHON,
@@ -273,7 +268,7 @@ const EditorPage: React.FC = () => {
               </ButtonGroup>
             </HStack>
             <Box borderRadius={6} overflow="clip">
-              <AceEditor
+              <Editor
                 name="editor"
                 mode={languageToModeMap[languageMode]}
                 theme="source"
