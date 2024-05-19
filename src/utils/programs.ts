@@ -22,3 +22,9 @@ export const sampleProgramLoader = async (language: Languages) => {
       return sampleSourceThreePrograms;
   }
 };
+
+export const defaultPrograms = Object.freeze({
+  [Languages.PYTHON]: "# Write your Python program here!\n",
+  [Languages.SOURCE_THREE_INTERPRETER]:
+    "// Write your Source §3 program here!\n",
+});

@@ -27,8 +27,6 @@ import {
   END_OF_TRANSMISSION,
   KEYBOARD_INTERRUPT,
   Languages,
-  PROGRAM_PLACEHOLDER_PYTHON,
-  PROGRAM_PLACEHOLDER_SOURCE_THREE,
   RAW_MODE_COMPILE,
   RAW_MODE_ENTER,
   RAW_MODE_EXIT,
@@ -46,10 +44,8 @@ const getInterpreterLib = async () =>
 const getSourceThreePrelude = async () =>
   (await import("../libs/source3/prelude")).sourceThreePrelude;
 
-const languagePlaceholders = {
-  [Languages.PYTHON]: PROGRAM_PLACEHOLDER_PYTHON,
-  [Languages.SOURCE_THREE_INTERPRETER]: PROGRAM_PLACEHOLDER_SOURCE_THREE,
-};
+const { setCurrentLanguage, setEditorValue, resetEditorValues } =
+  WorkspaceActions;
 
 const EditorPage: React.FC = () => {
   const [jsonProgram, setJsonProgram] = useState("");
@@ -59,12 +55,18 @@ const EditorPage: React.FC = () => {
     (state) => state.workspace.currentLanguage
   );
   const setLanguageMode = useCallback(
-    (language: Languages) =>
-      dispatch(WorkspaceActions.setCurrentLanguage(language)),
+    (language: Languages) => dispatch(setCurrentLanguage(language)),
     [dispatch]
   );
 
-  const [program, setProgram] = useState(languagePlaceholders[languageMode]);
+  const program = useTypedSelector(
+    (state) => state.workspace.editorValue[languageMode]
+  );
+  const setProgram = useCallback(
+    (program: string) => dispatch(setEditorValue(program)),
+    [dispatch]
+  );
+
   // TODO: Temporary workaround to allow for larger programs
   const [shouldUsePrelude, setShouldUsePrelude] = useState(false);
 
@@ -209,7 +211,7 @@ const EditorPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setProgram(languagePlaceholders[languageMode]);
+    resetEditorValues(languageMode);
     setJsonProgram("");
   }, [languageMode, setProgram]);
 
@@ -261,7 +263,7 @@ const EditorPage: React.FC = () => {
           </Stack>
         </GridItem>
         <GridItem>
-          <SampleProgramSidebar setProgramState={setProgram} />
+          <SampleProgramSidebar />
         </GridItem>
       </SimpleGrid>
     </Box>

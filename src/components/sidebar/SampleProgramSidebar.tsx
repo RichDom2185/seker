@@ -9,19 +9,19 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useTypedSelector } from "../../redux/hooks";
+import { useTypedDispatch, useTypedSelector } from "../../redux/hooks";
+import { WorkspaceActions } from "../../redux/reducers/workspace";
 import { sampleProgramLoader } from "../../utils/programs";
 import SampleProgramListItem from "./SampleProgramListItem";
 
-type Props = {
-  setProgramState: React.Dispatch<React.SetStateAction<string>>;
-};
+const { setEditorValue } = WorkspaceActions;
 
-const SampleProgramSidebar: React.FC<Props> = ({ setProgramState }) => {
+const SampleProgramSidebar: React.FC = () => {
   const [programs, setPrograms] = useState<ReadonlyArray<string>>();
   const languageMode = useTypedSelector(
     (state) => state.workspace.currentLanguage
   );
+  const dispatch = useTypedDispatch();
 
   useEffect(() => {
     setPrograms(undefined);
@@ -53,7 +53,7 @@ const SampleProgramSidebar: React.FC<Props> = ({ setProgramState }) => {
                   // Safe as programs are read only
                   key={i}
                   label={`Sample Program ${i + 1}`}
-                  onClick={() => setProgramState(program)}
+                  onClick={() => dispatch(setEditorValue(program))}
                 />
               );
             })

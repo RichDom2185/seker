@@ -4,10 +4,6 @@ export const BAUD_RATE_SPIKE_PRIME = 115200;
 export const KEYBOARD_INTERRUPT = "\x03";
 export const END_OF_TRANSMISSION = "\x04";
 
-export const PROGRAM_PLACEHOLDER_SOURCE_THREE =
-  "// Write your Source §3 program here!";
-export const PROGRAM_PLACEHOLDER_PYTHON = "# Write your Python program here!";
-
 // Reference: https://docs.micropython.org/en/latest/reference/repl.html#paste-mode
 export const PASTE_MODE_ENTER = "\x05";
 export const PASTE_MODE_EXIT = "\x04";
