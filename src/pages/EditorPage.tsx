@@ -9,7 +9,6 @@ import {
   GridItem,
   Heading,
   HStack,
-  Select,
   SimpleGrid,
   Spacer,
   Stack,
@@ -19,6 +18,7 @@ import { decompressFromEncodedURIComponent } from "lz-string";
 import qs from "query-string";
 import React, { useCallback, useEffect, useState } from "react";
 import Editor from "../components/editor/Editor";
+import LanguageSelector from "../components/editor/LanguageSelector";
 import UserGuide from "../components/modals/UserGuide";
 import SampleProgramSidebar from "../components/sidebar/SampleProgramSidebar";
 import { parse_into_json, parseIntoJsonChunks } from "../libs/parser";
@@ -34,7 +34,6 @@ import {
   RAW_MODE_COMPILE,
   RAW_MODE_ENTER,
   RAW_MODE_EXIT,
-  supportedLanguages,
 } from "../utils/constants";
 import {
   cleanProgram,
@@ -247,21 +246,7 @@ const EditorPage: React.FC = () => {
             )}
             <HStack>
               <Text fontWeight="bold">Select language mode:</Text>
-              <Select
-                size="sm"
-                variant="filled"
-                width="fit-content"
-                name="languageMode"
-                id="languagemode"
-                value={languageMode}
-                onChange={(e) => setLanguageMode(e.target.value as Languages)}
-              >
-                {supportedLanguages.map((language) => (
-                  <option key={language} value={language}>
-                    {language}
-                  </option>
-                ))}
-              </Select>
+              <LanguageSelector />
               {languageMode === Languages.SOURCE_THREE_INTERPRETER && (
                 <Checkbox
                   isChecked={shouldUsePrelude}
