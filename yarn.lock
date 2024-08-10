@@ -2146,9 +2146,9 @@ focus-lock@^1.0.0:
     tslib "^2.0.3"
 
 framer-motion@^11.0.28:
-  version "11.3.18"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.3.18.tgz#ca380896ef4f4b3a15fa6627309e964d2af63189"
-  integrity sha512-pPJXcshW+AABch6FQxFCeBd/bZFaZC2w/VdkSEZGvKIaVGA4IsOS2SqUEIWMKMJJsKwr96O+7vY66M+/S7mOlw==
+  version "11.3.24"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.3.24.tgz#c4c62b18be7c09814e809b4c9dca5b23a748b1b4"
+  integrity sha512-kl0YI7HwAtyV0VOAWuU/rXoOS8+z5qSkMN6rZS+a9oe6fIha6SC3vjJN6u/hBpvjrg5MQNdSnqnjYxm0WYTX9g==
   dependencies:
     tslib "^2.4.0"
 
