@@ -20,15 +20,15 @@
     "js-slang": "^1.0.74",
     "lz-string": "^1.5.0",
     "query-string": "^9.0.0",
-    "react": "^18.2.0",
+    "react": "^19.0.0",
     "react-ace": "^13.0.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^19.0.0",
     "react-redux": "^9.1.2",
     "sicp": "^1.1.4"
   },
   "devDependencies": {
-    "@types/react": "^18.2.78",
-    "@types/react-dom": "^18.2.25",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
     "@vitejs/plugin-react": "^4.0.0",
     "typescript": "^5.4.5",
     "vite": "^5.4.6"
