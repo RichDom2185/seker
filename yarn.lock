@@ -1288,9 +1288,9 @@ fast-glob@^3.2.12:
     micromatch "^4.0.8"
 
 fastq@^1.6.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.19.0.tgz#a82c6b7c2bb4e44766d865f07997785fecfdcb89"
-  integrity sha512-7SFSRCNjBQIZH/xZR3iy5iQYR8aGBE0h3VG6/cwlbrpdciNYBMotQav8c1XI3HjHH+NikUpP53nPdlZSdWmFzA==
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.19.1.tgz#d50eaba803c8846a883c16492821ebcd2cda55f5"
+  integrity sha512-GwLTyxkCXjXbxqIhTsMI2Nui8huMPtnxg7krajPJAjnEG/iiOS7i+zCtWGZR9G0NBKbXKh6X9m9UIsYX/N6vvQ==
   dependencies:
     reusify "^1.0.4"
 
@@ -1445,7 +1445,7 @@ gpu-mock.js@^1.3.0:
   resolved "https://registry.yarnpkg.com/gpu-mock.js/-/gpu-mock.js-1.3.1.tgz#f7deaa09da3f672762eda944ecf948fd2c4b1490"
   integrity sha512-+lbp8rQ0p1nTa6Gk6HoLiw4yM6JTpql82U+nCF3sZbX4FJWP9PzzF1018dW8K+pbmqRmhLHbn6Bjc6i6tgUpbA==
 
-gpu.js@^2.10.4, gpu.js@^2.16.0:
+gpu.js@^2.10.4:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/gpu.js/-/gpu.js-2.16.0.tgz#35531f8ee79292b71a454455e7bf0aaf6693182a"
   integrity sha512-ZKmWdRXi3F/9nim5ew2IPXZaMlSyqtMtVC8Itobjl+qYUgUqcBHxu8WKqK0AqIyjBVBl7A5ORo4Db2hzgrPd4A==
@@ -1618,9 +1618,9 @@ js-base64@^3.7.5:
   integrity sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==
 
 js-slang@^1.0.74:
-  version "1.0.80"
-  resolved "https://registry.yarnpkg.com/js-slang/-/js-slang-1.0.80.tgz#dadf9d7ec52024e68f9f08d1ee3b425dc347c6e6"
-  integrity sha512-0/DXBIa3CrvMzKyWBG4joxcLkZEqybpMKDeKXmUJk+lHrQQcOTb9AmXpSIS2rsvQT5EaHYQ2ROuuD6Gx701slg==
+  version "1.0.81"
+  resolved "https://registry.yarnpkg.com/js-slang/-/js-slang-1.0.81.tgz#ab323ff7b196ae8bd1d9a6500e2592f9d3b662da"
+  integrity sha512-7yAQuWTM0Jp50PMEWyf6lFxjXMFKC5DHNlQMpvAEPX25lFVykg8iWg49yZ1ffOKoOlEaWZ9CtDvzzWmHb7NqnA==
   dependencies:
     "@babel/parser" "^7.19.4"
     "@commander-js/extra-typings" "^12.0.1"
@@ -1633,7 +1633,6 @@ js-slang@^1.0.74:
     acorn-walk "^8.0.0"
     astring "^1.4.3"
     commander "^12.0.0"
-    gpu.js "^2.16.0"
     js-base64 "^3.7.5"
     lodash "^4.17.21"
     source-map "0.7.3"
@@ -2224,9 +2223,9 @@ retry@^0.12.0:
   integrity sha512-9LkiTwjUh6rT555DtE9rTX+BKByPfrMzEAtnlEtdEwr3Nkffwiihqe2bWADg+OQRjt9gl6ICdmB/ZFDCGAtSow==
 
 reusify@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.0.4.tgz#90da382b1e126efc02146e90845a88db12925d76"
-  integrity sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.1.0.tgz#0fe13b9522e1473f51b558ee796e08f11f9b489f"
+  integrity sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==
 
 rollup@^4.20.0:
   version "4.34.0"
