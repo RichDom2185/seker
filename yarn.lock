@@ -1384,11 +1384,11 @@ foreground-child@^3.1.0:
     signal-exit "^4.0.1"
 
 framer-motion@^12.0.0:
-  version "12.16.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.16.0.tgz#d715b81b1b41ba61ce842e7085390e1533ec3814"
-  integrity sha512-xryrmD4jSBQrS2IkMdcTmiS4aSKckbS7kLDCuhUn9110SQKG1w3zlq1RTqCblewg+ZYe+m3sdtzQA6cRwo5g8Q==
+  version "12.18.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.18.0.tgz#6f5b41f182896488d1b64d0322c06500f43da541"
+  integrity sha512-/wkogCg1Z1/f3Z/qtt1CWA5hlMBjHoE2bMv4BdCGkzOdtRZ4gpHHcFTNq5w7Y1XQxOka2+dFRs1MXrX53XWSow==
   dependencies:
-    motion-dom "^12.16.0"
+    motion-dom "^12.17.3"
     motion-utils "^12.12.1"
     tslib "^2.4.0"
 
@@ -1892,10 +1892,10 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-motion-dom@^12.16.0:
-  version "12.16.0"
-  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.16.0.tgz#ccf88d45db04214f32d455e12621f5213968bfd5"
-  integrity sha512-Z2nGwWrrdH4egLEtgYMCEN4V2qQt1qxlKy/uV7w691ztyA41Q5Rbn0KNGbsNVDZr9E8PD2IOQ3hSccRnB6xWzw==
+motion-dom@^12.17.3:
+  version "12.17.3"
+  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.17.3.tgz#4d56225a6a9ef51c40a329f5a9174a511b2dafee"
+  integrity sha512-nJrH4O9Z6lBSgllD5t+2lF1O8LkBxOq9QSUUmygHJVzHiTLaYpZRgd+U70919IL0CMbFBaFGEJ8hDSwnrmcyZw==
   dependencies:
     motion-utils "^12.12.1"
 
