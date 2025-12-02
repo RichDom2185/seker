@@ -855,9 +855,9 @@ abbrev@^2.0.0:
   integrity sha512-6/mh1E2u2YgEsCHdY0Yx5oW+61gZU+1vXaoiHHrpKeuRNNgFvS+/jrwHiQhB5apAf5oB7UB7E19ol2R2LKH8hQ==
 
 ace-builds@^1.36.3:
-  version "1.43.4"
-  resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.43.4.tgz#126830ba77424f5f73cf48faa352e5fa3b345a90"
-  integrity sha512-8hAxVfo2ImICd69BWlZwZlxe9rxDGDjuUhh+WeWgGDvfBCE+r3lkynkQvIovDz4jcMi8O7bsEaFygaDT+h9sBA==
+  version "1.43.5"
+  resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.43.5.tgz#2099eee8caade0cd1ee4ce3e0d2c6fb2cd7e8619"
+  integrity sha512-iH5FLBKdB7SVn9GR37UgA/tpQS8OTWIxWAuq3Ofaw+Qbc69FfPXsXd9jeW7KRG2xKpKMqBDnu0tHBrCWY5QI7A==
 
 acorn-class-fields@^1.0.0:
   version "1.0.0"
