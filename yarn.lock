@@ -1432,9 +1432,9 @@ foreground-child@^3.1.0:
     signal-exit "^4.0.1"
 
 framer-motion@^12.0.0:
-  version "12.31.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.31.0.tgz#cf31462afa14301c90392439373ede9f8d96d77e"
-  integrity sha512-Tnd0FU05zGRFI3JJmBegXonF1rfuzYeuXd1QSdQ99Ysnppk0yWBWSW2wUsqzRpS5nv0zPNx+y0wtDj4kf0q5RQ==
+  version "12.31.1"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.31.1.tgz#3330a29df557bb65c4a38080f9d1cef0f9ef103a"
+  integrity sha512-cMwCU/k6k7ktHbIXE5NFCgG+BLW2CmCahPMw2MuZuIUHOy1HEa4wnYXBWz4l16eQc8eRGHpO5umWQ0QDl+evPw==
   dependencies:
     motion-dom "^12.30.1"
     motion-utils "^12.29.2"
