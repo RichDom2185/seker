@@ -1425,12 +1425,12 @@ foreground-child@^3.1.0:
     signal-exit "^4.0.1"
 
 framer-motion@^12.0.0:
-  version "12.35.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.35.0.tgz#15e683ae66a9541bb468cf9c1ccdb1517c884433"
-  integrity sha512-w8hghCMQ4oq10j6aZh3U2yeEQv5K69O/seDI/41PK4HtgkLrcBovUNc0ayBC3UyyU7V1mrY2yLzvYdWJX9pGZQ==
+  version "12.36.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.36.0.tgz#ab5cfa0722ec7e2fb5b5be8e5ff795ac287e3a91"
+  integrity sha512-4PqYHAT7gev0ke0wos+PyrcFxI0HScjm3asgU8nSYa8YzJFuwgIvdj3/s3ZaxLq0bUSboIn19A2WS/MHwLCvfw==
   dependencies:
-    motion-dom "^12.35.0"
-    motion-utils "^12.29.2"
+    motion-dom "^12.36.0"
+    motion-utils "^12.36.0"
     tslib "^2.4.0"
 
 framesync@6.1.2:
@@ -1926,17 +1926,17 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-motion-dom@^12.35.0:
-  version "12.35.0"
-  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.35.0.tgz#4f0ba2144ffecad988b3db7fe0789c4ee5c84daf"
-  integrity sha512-FFMLEnIejK/zDABn+vqGVAUN4T0+3fw+cVAY8MMT65yR+j5uMuvWdd4npACWhh94OVWQs79CrBBuwOwGRZAQiA==
+motion-dom@^12.36.0:
+  version "12.36.0"
+  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.36.0.tgz#fc83e66466d819f90cc7a46137f67dfa5fe054da"
+  integrity sha512-Ep1pq8P88rGJ75om8lTCA13zqd7ywPGwCqwuWwin6BKc0hMLkVfcS6qKlRqEo2+t0DwoUcgGJfXwaiFn4AOcQA==
   dependencies:
-    motion-utils "^12.29.2"
+    motion-utils "^12.36.0"
 
-motion-utils@^12.29.2:
-  version "12.29.2"
-  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.29.2.tgz#8fdd28babe042c2456b078ab33b32daa3bf5938b"
-  integrity sha512-G3kc34H2cX2gI63RqU+cZq+zWRRPSsNIOjpdl9TN4AQwC4sgwYPl/Q/Obf/d53nOm569T0fYK+tcoSV50BWx8A==
+motion-utils@^12.36.0:
+  version "12.36.0"
+  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.36.0.tgz#cff2df2a28c3fe53a3de7e0103ba7f73ff7d77a7"
+  integrity sha512-eHWisygbiwVvf6PZ1vhaHCLamvkSbPIeAYxWUuL3a2PD/TROgE7FvfHWTIH4vMl798QLfMw15nRqIaRDXTlYRg==
 
 ms@^2.1.3:
   version "2.1.3"
