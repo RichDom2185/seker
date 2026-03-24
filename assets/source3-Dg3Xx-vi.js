@@ -1,8 +1,8 @@
-const e=`// SEKER API Tour
+var e=[`// SEKER API Tour
 
 // Shows the below text on the 5x5 display, one character at a time
 spike_showText("Hello from SPIKE Prime!");
-`,n=`// Requires a motor to be plugged into Port A on the hub
+`,`// Requires a motor to be plugged into Port A on the hub
 const motor = spike_motorA();
 const rotationsToDegrees = rot => rot * 360;
 
@@ -14,7 +14,7 @@ for (let i = 0; i < 4; i = i + 1) {
                       rotationsToDegrees(isReverse ? -rotations : rotations));
   isReverse = !isReverse;
 }
-`,s=`// Adapted from
+`,`// Adapted from
 // https://projecthub.arduino.cc/slagestee/d947337b-0ff0-4a2d-93c6-8b117ea61d79
 const a4f = 415;
 const b4f = 466;
@@ -50,13 +50,13 @@ for (let i = 0; i < 29; i = i + 1) {
   spike_playSound(notes[i], durations[i] * 100);
   spike_sleep(durations[i] * 0.12);
 }
-`,o=`// Requires a force sensor to be plugged into any of the ports on the hub
+`,`// Requires a force sensor to be plugged into any of the ports on the hub
 const sensor = spike_forceSensor();
 for (let i = 0; i < 10; i = i + 1) {
   display(spike_getIsTouched(sensor));
   spike_sleep(1);
 }
-`,t=`for (let i = 0; i < 10; i = i + 1) {
+`,`for (let i = 0; i < 10; i = i + 1) {
   spike_showImage("00099:00990:09900:99000:09900");
   spike_sleep(0.2);
   spike_showImage("00990:09900:99000:09900:00990");
@@ -70,4 +70,4 @@ for (let i = 0; i < 10; i = i + 1) {
   spike_showImage("00990:00099:00990:09900:99000");
   spike_sleep(0.2);
 }
-`,i=[e,n,s,o,t];export{i as sampleSourceThreePrograms};
+`];export{e as sampleSourceThreePrograms};

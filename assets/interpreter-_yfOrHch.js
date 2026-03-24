@@ -1,4 +1,4 @@
-const n=`# evaluation of toplevel results
+var e={evaluatePrelude:`# evaluation of toplevel results
 # in the value undefined if the
 # stash is empty
 C = [{'tag': 'push_undefined_if_needed_i'},
@@ -21,7 +21,7 @@ del json_prelude
 # garbage collection when >5% of remaining free heap space is occupied
 gc.collect()
 gc.threshold(gc.mem_free() // 20 + gc.mem_alloc())
-`,a=`# LEGO type:standard slot:8 autostart
+`,prefix:`# LEGO type:standard slot:8 autostart
 
 # CSE-style interpreter for Source §3 (JavaScript sublanguage),
 # written in MicroPython (sublanguage of Python 3)
@@ -611,7 +611,7 @@ def rev(xs):
 
 
 def raise_exception(s): raise Exception(s)
-`,e=`cse_microcode = {
+`,prefix2:`cse_microcode = {
     ##########################
     # expressions of Source §3
     ##########################
@@ -804,7 +804,7 @@ def raise_exception(s): raise Exception(s)
     'arr_assmt_i':
     cse_microcode_arr_assmt_i
 }
-`,t=`# Clear stash after evaluating prelude
+`,suffix:`# Clear stash after evaluating prelude
 S = []
 
 # evaluation of toplevel results
@@ -824,7 +824,7 @@ while True:
 if len(S) > 1 or len(S) < 1:
     raise Exception('internal error: stash must be singleton but is: ', S)
 print("output: " + value_to_string(S[0]))
-`,s=`import gc
+`,spikeMicrocode:`import gc
 
 import hub
 from spike import Motor
@@ -872,4 +872,4 @@ for k, v in builtin_microcode.items():
 # garbage collection when >5% of remaining free heap space is occupied
 gc.collect()
 gc.threshold(gc.mem_free() // 20 + gc.mem_alloc())
-`,r={evaluatePrelude:n,prefix:a,prefix2:e,suffix:t,spikeMicrocode:s};export{r as default};
+`};export{e as default};
