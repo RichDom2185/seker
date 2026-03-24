@@ -29,9 +29,9 @@
   "devDependencies": {
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
-    "@vitejs/plugin-react": "^5.0.0",
+    "@vitejs/plugin-react": "^6.0.1",
     "typescript": "^5.8.2",
-    "vite": "^7.1.11"
+    "vite": "^8.0.2"
   },
   "resolutions": {
     "**/gl": "9.0.0-rc.9"
