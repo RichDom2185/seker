@@ -34,7 +34,7 @@
     "vite": "^8.0.5"
   },
   "resolutions": {
-    "**/gl": "9.0.0-rc.9"
+    "**/gl": "9.0.0-rc.10"
   },
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
