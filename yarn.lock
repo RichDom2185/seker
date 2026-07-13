@@ -735,9 +735,9 @@ bl@^4.0.3:
     readable-stream "^3.4.0"
 
 brace-expansion@^2.0.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-2.1.1.tgz#c68b1c4111c76aae3a6fba55d496cee10c39dad8"
-  integrity sha512-WR1cURNjuvBLMZBMbqM0UoE+WAfdUcEV1ccD8PVBVOI+Z3ND4+SZbN8RsfT2bMuG1qwz5RFvPukSZm5fF2D5eA==
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-2.1.2.tgz#0bba2271feb7d458b0d31ad13625aaa4754431e2"
+  integrity sha512-w5JZcKgdhDOgOwm8H+KgbosopHMuGcl6qbulwjtz3SM7I7P3yW1eAjzMPLrIE+NQ9vjgANKHWeMHnrT0OXW1oA==
   dependencies:
     balanced-match "^1.0.0"
 
@@ -1206,14 +1206,14 @@ isexe@^4.0.0:
   integrity sha512-FFUtZMpoZ8RqHS3XeXEmHWLA4thH+ZxCv2lOiPIn1Xc7CxrqhWzNSDzD+/chS/zbYezmiwWLdQC09JdQKmthOw==
 
 js-base64@^3.7.5:
-  version "3.7.8"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.8.tgz#af44496bc09fa178ed9c4adf67eb2b46f5c6d2a4"
-  integrity sha512-hNngCeKxIUQiEUN3GPJOkz4wF/YvdUdbNL9hsBcMQTkKzboD7T/q3OYOuuPZLUE6dBxSGpwhk5mwuDud7JVAow==
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.8.1.tgz#b04bf95d803cc924d0831e5a7790519567ef1c8a"
+  integrity sha512-5xVjhUZlHHeuO2W7w2rDFj/Kl1xLX+HjZxdOQwCsUOifl6UaoH1o1wsbsTMz+r0aeC7gCijvru02j6TfKZWzKg==
 
 js-slang@^1.0.81:
-  version "1.0.93"
-  resolved "https://registry.yarnpkg.com/js-slang/-/js-slang-1.0.93.tgz#bf8da020d60e00cd560dc3dcc11d7200a85565e4"
-  integrity sha512-RpRnasTsRKetWZbx1DXk59TAoOX1zMim5AdwNndh5XsZ4lRNKZuATv6lfNyhI6lFTzYjM4r1fLAA01S9SAznew==
+  version "1.0.94"
+  resolved "https://registry.yarnpkg.com/js-slang/-/js-slang-1.0.94.tgz#3adbbe4eea9e237cdd0d28b959e11e0c09ebc5fe"
+  integrity sha512-sqp8hplzEowIJWxnJqJNFSeoNrcKCEUBqh9KJ2yLK6Zbf6iTCJZHhAWroTs9a9OyWsfG/MZZwCufXAAzqRJvpw==
   dependencies:
     "@babel/parser" "^7.19.4"
     "@commander-js/extra-typings" "^14.0.0"
