@@ -1659,10 +1659,10 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-ace@^14.0.0:
-  version "14.1.0"
-  resolved "https://registry.yarnpkg.com/react-ace/-/react-ace-14.1.0.tgz#2b0ee87ec98d6934514adddf8e682071f890a500"
-  integrity sha512-H+Tuw1oa3uP6zRoLBOayPVaMy5Le4G33OpEmLOfSVks75ajmrmFGbyWWEHfBYLCCpu5KfyFlod9jCEUc7i5ekw==
+react-ace@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/react-ace/-/react-ace-15.0.0.tgz#4a8b377c924e23f4ae934fee473e14c283237787"
+  integrity sha512-gdmS5ftF0hsbkcrAjZQqYbXwFg5JrHuxjki8mP6Bn9kfa6lHKfZk9sU9EfS0ifQ1CpGCmRxF/VC7GRvlJMBuZw==
   dependencies:
     ace-builds "^1.36.3"
     diff-match-patch "^1.0.5"
