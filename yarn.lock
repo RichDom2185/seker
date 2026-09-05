@@ -944,13 +944,13 @@ focus-lock@^1.3.6:
   dependencies:
     tslib "^2.0.3"
 
-framer-motion@^12.0.0:
-  version "12.43.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.43.0.tgz#f7f7f0cf792959ca6a0a7ccd2d55269e68061bc4"
-  integrity sha512-1eaL3RvR/kAlbG7UYcpMptEyzPoENO0c6w7ZnB3/hh2vSAz/6uGAFn6fdoqTBguNstf3MsFhJHsD/0DHiclG+g==
+framer-motion@^13.0.0:
+  version "13.2.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-13.2.0.tgz#e531f00950f590d5ac0e905a355b8af4ca3923b0"
+  integrity sha512-9E33ebgMaO33w1nN/jEdW8z3/GO483fMi4rqbMG9rt83XgW9QLKRe4NcmJ8s+fQ3O34++UHrIQwlIWGIWTITjA==
   dependencies:
-    motion-dom "^12.43.0"
-    motion-utils "^12.39.0"
+    motion-dom "^13.2.0"
+    motion-utils "^13.0.0"
     tslib "^2.4.0"
 
 framesync@6.1.2:
@@ -1447,17 +1447,17 @@ mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-motion-dom@^12.43.0:
-  version "12.43.0"
-  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.43.0.tgz#65f618a520c4eacf49b6b1bbd023abceff8fb5dd"
-  integrity sha512-azKON4d9S65PEoFUiQTMTgPheEmzf2QngdRc50AKfJp9Q9mmcBVw22c8eMq9k8kxOFHdL7+WZY7N/5F/lwiDag==
+motion-dom@^13.2.0:
+  version "13.2.0"
+  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-13.2.0.tgz#d13d09accabdd6775d3bb981895fa2b8b6c07735"
+  integrity sha512-N6gdSoWRDk0Rh/fVtlqUtLs+fEN3ELFZI3cn3IQE9Mnf3E+Mh8wjO6MstzCOPFh4Yf0L1as5m2eUyYWj8ylVSQ==
   dependencies:
-    motion-utils "^12.39.0"
+    motion-utils "^13.0.0"
 
-motion-utils@^12.39.0:
-  version "12.39.0"
-  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.39.0.tgz#e1c66f0e912999804bc5e69b4630c3bc794ef29f"
-  integrity sha512-8nadJAJjTtqRkmRF36FoJTrywK9nnFmnPwnSMyxaOCU7GDjN9RTMJIxx9De8ErM+vpPhMccr/6fo5WciyQLnMQ==
+motion-utils@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-13.0.0.tgz#b2e4dbe21e5488032592f0b0d4e0b7b776466dfa"
+  integrity sha512-7DnN7TmbLcYXcG4RVadXIihWlyuM9afoUww8Y5Agg431kGKiuL2/OMyP4mJ5wLz+pvN3t5ySClLOaVXJ+wekRQ==
 
 ms@^2.1.3:
   version "2.1.3"
