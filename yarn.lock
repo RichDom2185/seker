@@ -486,10 +486,15 @@
   resolved "https://registry.yarnpkg.com/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.8.tgz#df4e965896c61411b96566abf345f46141f498c4"
   integrity sha512-uz2ZvfgXbxqNwijjjbxrnvALwpyODDcgc1T1N8N3rf/DXKQmaFwmB4LX4yyjggpwN2obdQLb2rgirX5ffCWYng==
 
-"@rolldown/pluginutils@^1.0.0", "@rolldown/pluginutils@^1.0.1":
+"@rolldown/pluginutils@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@rolldown/pluginutils/-/pluginutils-1.0.1.tgz#e3fcee093fbb5ce765e1ad088ff4de2889f6f9be"
   integrity sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==
+
+"@rolldown/pluginutils@^1.0.1":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@rolldown/pluginutils/-/pluginutils-1.1.0.tgz#9c029af4d8bdd9c0765784edbabe741f2b314629"
+  integrity sha512-K+NU2HDCEem4sClgHH4ZZXwdJeNFkJo+hRk479DIwdIviAPN2hFJH1KHHwg8CxHQXvi0M5XY4deTXINfIiSG6w==
 
 "@standard-schema/spec@^1.0.0":
   version "1.1.0"
@@ -558,9 +563,9 @@
   integrity sha512-zFDAD+tlpf2r4asuHEj0XH6pY6i0g5NeAHPn+15wk3BV6JA69eERFXC1gyGThDkVa1zCyKr5jox1+2LbV/AMLg==
 
 "@vitejs/plugin-react@^6.0.1":
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/@vitejs/plugin-react/-/plugin-react-6.1.1.tgz#47fa1a2f956e88eaf778ebf65ddce8e2b36597e7"
-  integrity sha512-yxLaQV9gkhS8ezJqCM6+ndU7mDY6gqAg75NQ+0IjwEI8IYOmQCgkRwHKVSfWXW076DsqMo0Dk+0FK1U+M5RgFw==
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@vitejs/plugin-react/-/plugin-react-6.3.0.tgz#28b3ec6e786601a362fbfdf8b12725931b619669"
+  integrity sha512-H9E955aVvD2F4zNHCw4eIZbIfF6xKldlh7MNu+hSU7xwQzh65lI/N+CJWqmfhi0PEjDXIt/H7T7J/4wU63KJiw==
   dependencies:
     "@rolldown/pluginutils" "^1.0.1"
 
